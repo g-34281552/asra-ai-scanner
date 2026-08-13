@@ -1,1 +1,2016 @@
+<!DOCTYPE html>
+<html lang="ms">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,
+             initial-scale=1.0,
+             maximum-scale=1.0,
+             user-scalable=no">
+
+  <title>ASRA AI – Dashboard Asrama</title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        #f1f5f9;
+
+      color:
+        #1e293b;
+
+    }
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    .header {
+
+      background:
+        linear-gradient(
+          135deg,
+          #0b3d91,
+          #1565c0
+        );
+
+      color:
+        white;
+
+      text-align:
+        center;
+
+      padding:
+        22px 15px;
+
+      box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.15);
+
+    }
+
+
+    .logo {
+
+      font-size:
+        42px;
+
+      margin-bottom:
+        5px;
+
+    }
+
+
+    .header h1 {
+
+      margin:
+        0;
+
+      font-size:
+        25px;
+
+    }
+
+
+    .header p {
+
+      margin:
+        7px 0 0;
+
+      font-size:
+        14px;
+
+      opacity:
+        0.9;
+
+    }
+
+
+    /* =====================================================
+       CONTAINER
+       ===================================================== */
+
+    .container {
+
+      width:
+        100%;
+
+      max-width:
+        900px;
+
+      margin:
+        auto;
+
+      padding:
+        15px;
+
+    }
+
+
+    /* =====================================================
+       TOOLBAR
+       ===================================================== */
+
+    .toolbar {
+
+      display:
+        flex;
+
+      gap:
+        10px;
+
+      margin-bottom:
+        15px;
+
+    }
+
+
+    .toolbar button {
+
+      flex:
+        1;
+
+      border:
+        none;
+
+      border-radius:
+        12px;
+
+      padding:
+        14px;
+
+      font-size:
+        15px;
+
+      font-weight:
+        bold;
+
+      cursor:
+        pointer;
+
+    }
+
+
+    .btn-refresh {
+
+      background:
+        #0b3d91;
+
+      color:
+        white;
+
+    }
+
+
+    .btn-scanner {
+
+      background:
+        #16a34a;
+
+      color:
+        white;
+
+    }
+
+
+    /* =====================================================
+       UPDATE INFO
+       ===================================================== */
+
+    .update-info {
+
+      background:
+        white;
+
+      border-radius:
+        12px;
+
+      padding:
+        10px 14px;
+
+      margin-bottom:
+        15px;
+
+      text-align:
+        center;
+
+      font-size:
+        13px;
+
+      color:
+        #64748b;
+
+      box-shadow:
+        0 2px 8px
+        rgba(15,23,42,0.05);
+
+    }
+
+
+    /* =====================================================
+       STATISTICS
+       ===================================================== */
+
+    .stats {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap:
+        12px;
+
+      margin-bottom:
+        15px;
+
+    }
+
+
+    .stat-card {
+
+      background:
+        white;
+
+      border-radius:
+        16px;
+
+      padding:
+        18px 10px;
+
+      text-align:
+        center;
+
+      box-shadow:
+        0 4px 15px
+        rgba(15,23,42,0.08);
+
+    }
+
+
+    .stat-icon {
+
+      font-size:
+        30px;
+
+    }
+
+
+    .stat-number {
+
+      font-size:
+        30px;
+
+      font-weight:
+        bold;
+
+      margin:
+        5px 0;
+
+    }
+
+
+    .stat-label {
+
+      font-size:
+        13px;
+
+      color:
+        #64748b;
+
+      font-weight:
+        bold;
+
+    }
+
+
+    .stat-total .stat-number {
+
+      color:
+        #0b3d91;
+
+    }
+
+
+    .stat-dalam .stat-number {
+
+      color:
+        #16a34a;
+
+    }
+
+
+    .stat-luar .stat-number {
+
+      color:
+        #dc2626;
+
+    }
+
+
+    /* =====================================================
+       STATUS UNKNOWN
+       ===================================================== */
+
+    .unknown-box {
+
+      background:
+        #fff7ed;
+
+      color:
+        #9a3412;
+
+      border:
+        1px solid #fed7aa;
+
+      border-radius:
+        12px;
+
+      padding:
+        12px;
+
+      margin-bottom:
+        15px;
+
+      text-align:
+        center;
+
+      font-weight:
+        bold;
+
+      display:
+        none;
+
+    }
+
+
+    /* =====================================================
+       CARD
+       ===================================================== */
+
+    .card {
+
+      background:
+        white;
+
+      border-radius:
+        18px;
+
+      padding:
+        18px;
+
+      margin-bottom:
+        15px;
+
+      box-shadow:
+        0 4px 15px
+        rgba(15,23,42,0.08);
+
+    }
+
+
+    .section-title {
+
+      margin:
+        0 0 15px;
+
+      font-size:
+        20px;
+
+      color:
+        #0b3d91;
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+       ===================================================== */
+
+    .search {
+
+      width:
+        100%;
+
+      border:
+        1px solid #cbd5e1;
+
+      border-radius:
+        12px;
+
+      padding:
+        14px;
+
+      font-size:
+        16px;
+
+      outline:
+        none;
+
+      margin-bottom:
+        15px;
+
+    }
+
+
+    .search:focus {
+
+      border-color:
+        #1565c0;
+
+    }
+
+
+    /* =====================================================
+       STUDENT LIST
+       ===================================================== */
+
+    .student-list {
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      gap:
+        10px;
+
+    }
+
+
+    .student {
+
+      border:
+        1px solid #e2e8f0;
+
+      border-radius:
+        14px;
+
+      padding:
+        14px;
+
+      background:
+        #f8fafc;
+
+    }
+
+
+    .student-top {
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        flex-start;
+
+      gap:
+        10px;
+
+    }
+
+
+    .student-name {
+
+      font-size:
+        17px;
+
+      font-weight:
+        bold;
+
+      color:
+        #0b3d91;
+
+    }
+
+
+    .student-id {
+
+      font-size:
+        12px;
+
+      color:
+        #64748b;
+
+      margin-top:
+        3px;
+
+    }
+
+
+    .student-info {
+
+      font-size:
+        13px;
+
+      color:
+        #475569;
+
+      margin-top:
+        8px;
+
+      line-height:
+        1.5;
+
+    }
+
+
+    /* =====================================================
+       STATUS BADGE
+       ===================================================== */
+
+    .badge {
+
+      display:
+        inline-block;
+
+      padding:
+        7px 10px;
+
+      border-radius:
+        20px;
+
+      font-size:
+        11px;
+
+      font-weight:
+        bold;
+
+      white-space:
+        nowrap;
+
+    }
+
+
+    .badge-dalam {
+
+      background:
+        #dcfce7;
+
+      color:
+        #166534;
+
+    }
+
+
+    .badge-luar {
+
+      background:
+        #fee2e2;
+
+      color:
+        #991b1b;
+
+    }
+
+
+    .badge-unknown {
+
+      background:
+        #fef3c7;
+
+      color:
+        #92400e;
+
+    }
+
+
+    /* =====================================================
+       TRANSAKSI
+       ===================================================== */
+
+    .transaction-list {
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      gap:
+        10px;
+
+    }
+
+
+    .transaction {
+
+      border:
+        1px solid #e2e8f0;
+
+      border-radius:
+        12px;
+
+      padding:
+        13px;
+
+      background:
+        #f8fafc;
+
+    }
+
+
+    .transaction-top {
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      gap:
+        10px;
+
+    }
+
+
+    .transaction-name {
+
+      font-weight:
+        bold;
+
+      color:
+        #1e293b;
+
+    }
+
+
+    .transaction-status {
+
+      font-size:
+        12px;
+
+      font-weight:
+        bold;
+
+      padding:
+        6px 9px;
+
+      border-radius:
+        15px;
+
+    }
+
+
+    .transaction-masuk {
+
+      background:
+        #dcfce7;
+
+      color:
+        #166534;
+
+    }
+
+
+    .transaction-keluar {
+
+      background:
+        #fee2e2;
+
+      color:
+        #991b1b;
+
+    }
+
+
+    .transaction-details {
+
+      font-size:
+        12px;
+
+      color:
+        #64748b;
+
+      margin-top:
+        6px;
+
+      line-height:
+        1.5;
+
+    }
+
+
+    /* =====================================================
+       LOADING
+       ===================================================== */
+
+    .loading {
+
+      text-align:
+        center;
+
+      padding:
+        25px;
+
+      color:
+        #0b3d91;
+
+      font-weight:
+        bold;
+
+    }
+
+
+    .spinner {
+
+      display:
+        inline-block;
+
+      width:
+        20px;
+
+      height:
+        20px;
+
+      border:
+        3px solid #dbeafe;
+
+      border-top:
+        3px solid #1565c0;
+
+      border-radius:
+        50%;
+
+      animation:
+        spin 1s linear infinite;
+
+      vertical-align:
+        middle;
+
+      margin-right:
+        8px;
+
+    }
+
+
+    @keyframes spin {
+
+      0% {
+        transform:
+          rotate(0deg);
+      }
+
+      100% {
+        transform:
+          rotate(360deg);
+      }
+
+    }
+
+
+    /* =====================================================
+       EMPTY
+       ===================================================== */
+
+    .empty {
+
+      text-align:
+        center;
+
+      color:
+        #64748b;
+
+      padding:
+        25px 10px;
+
+      font-size:
+        14px;
+
+    }
+
+
+    /* =====================================================
+       ERROR
+       ===================================================== */
+
+    .error {
+
+      background:
+        #fee2e2;
+
+      color:
+        #991b1b;
+
+      border:
+        1px solid #fca5a5;
+
+      border-radius:
+        12px;
+
+      padding:
+        15px;
+
+      text-align:
+        center;
+
+      margin-bottom:
+        15px;
+
+      display:
+        none;
+
+      line-height:
+        1.5;
+
+    }
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    .footer {
+
+      text-align:
+        center;
+
+      color:
+        #64748b;
+
+      font-size:
+        12px;
+
+      padding:
+        20px;
+
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (
+      max-width: 600px
+    ) {
+
+      .stats {
+
+        grid-template-columns:
+          1fr 1fr;
+
+      }
+
+
+      .stat-total {
+
+        grid-column:
+          1 / -1;
+
+      }
+
+
+      .toolbar {
+
+        flex-direction:
+          column;
+
+      }
+
+
+      .student-top {
+
+        flex-direction:
+          column;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="header">
+
+    <div class="logo">
+      🏫
+    </div>
+
+    <h1>
+      ASRA AI
+    </h1>
+
+    <p>
+      Dashboard Kehadiran Asrama
+    </p>
+
+  </div>
+
+
+  <div class="container">
+
+
+    <!-- ===================================================
+         TOOLBAR
+         =================================================== -->
+
+    <div class="toolbar">
+
+      <button
+        class="btn-refresh"
+        onclick="muatDashboard()">
+
+        🔄 Muat Semula
+
+      </button>
+
+
+      <button
+        class="btn-scanner"
+        onclick="bukaScanner()">
+
+        📷 Scanner QR
+
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         UPDATE
+         =================================================== -->
+
+    <div
+      id="updateInfo"
+      class="update-info">
+
+      Menunggu data...
+
+    </div>
+
+
+    <!-- ===================================================
+         ERROR
+         =================================================== -->
+
+    <div
+      id="errorBox"
+      class="error">
+
+    </div>
+
+
+    <!-- ===================================================
+         STATISTIK
+         =================================================== -->
+
+    <div class="stats">
+
+
+      <div
+        class="stat-card stat-total">
+
+        <div class="stat-icon">
+          👨‍🎓
+        </div>
+
+        <div
+          id="jumlahMurid"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="stat-label">
+
+          JUMLAH MURID
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="stat-card stat-dalam">
+
+        <div class="stat-icon">
+          🟢
+        </div>
+
+        <div
+          id="dalamAsrama"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="stat-label">
+
+          DALAM ASRAMA
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="stat-card stat-luar">
+
+        <div class="stat-icon">
+          🔴
+        </div>
+
+        <div
+          id="diLuar"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="stat-label">
+
+          DI LUAR
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         UNKNOWN
+         =================================================== -->
+
+    <div
+      id="unknownBox"
+      class="unknown-box">
+
+      ⚠️
+      <span id="tidakDiketahui">
+        0
+      </span>
+      murid mempunyai status
+      tidak diketahui.
+
+    </div>
+
+
+    <!-- ===================================================
+         SENARAI MURID
+         =================================================== -->
+
+    <div class="card">
+
+      <h2 class="section-title">
+
+        👨‍🎓 Status Murid
+
+      </h2>
+
+
+      <input
+        id="searchInput"
+        class="search"
+        type="search"
+        placeholder="🔎 Cari nama, ID, kelas atau dorm..."
+        oninput="tapisMurid()">
+
+
+      <div
+        id="studentLoading"
+        class="loading">
+
+        <span class="spinner"></span>
+
+        Memuatkan senarai murid...
+
+      </div>
+
+
+      <div
+        id="studentList"
+        class="student-list">
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         TRANSAKSI TERKINI
+         =================================================== -->
+
+    <div class="card">
+
+      <h2 class="section-title">
+
+        🕐 Transaksi Terkini
+
+      </h2>
+
+
+      <div
+        id="transactionLoading"
+        class="loading">
+
+        <span class="spinner"></span>
+
+        Memuatkan transaksi...
+
+      </div>
+
+
+      <div
+        id="transactionList"
+        class="transaction-list">
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <div class="footer">
+
+    ASRA AI © 2026
+
+    <br>
+
+    Smart Boarding Attendance System
+
+  </div>
+
+
+  <script>
+
+
+    /* =====================================================
+       KONFIGURASI
+       ===================================================== */
+
+    const API_URL =
+      "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_DI_SINI";
+
+
+    let semuaMurid = [];
+
+
+    let dashboardData = null;
+
+
+    /* =====================================================
+       APABILA PAGE DIBUKA
+       ===================================================== */
+
+    window.addEventListener(
+      "load",
+      function() {
+
+        muatDashboard();
+
+      }
+    );
+
+
+    /* =====================================================
+       MUAT DASHBOARD
+       ===================================================== */
+
+    async function muatDashboard() {
+
+      paparError("");
+
+      paparLoadingMurid(true);
+
+      paparLoadingTransaksi(true);
+
+
+      try {
+
+
+        const url =
+          API_URL +
+          "?api=dashboard";
+
+
+        console.log(
+          "Dashboard URL:",
+          url
+        );
+
+
+        const response =
+          await fetch(
+            url,
+            {
+              method:
+                "GET",
+
+              cache:
+                "no-store"
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "HTTP " +
+            response.status
+          );
+
+        }
+
+
+        const result =
+          await response.json();
+
+
+        console.log(
+          "Dashboard API:",
+          result
+        );
+
+
+        if (
+          !result ||
+          !result.berjaya
+        ) {
+
+          throw new Error(
+            result &&
+            result.mesej
+              ? result.mesej
+              : "Data dashboard gagal diperoleh."
+          );
+
+        }
+
+
+        dashboardData =
+          result;
+
+
+        semuaMurid =
+          Array.isArray(
+            result.murid
+          )
+            ? result.murid
+            : [];
+
+
+        paparStatistik(
+          result
+        );
+
+
+        paparSenaraiMurid(
+          semuaMurid
+        );
+
+
+        paparTransaksi(
+          Array.isArray(
+            result.transaksi
+          )
+            ? result.transaksi
+            : []
+        );
+
+
+        document.getElementById(
+          "updateInfo"
+        ).textContent =
+
+          "🔄 Dikemas kini: " +
+
+          (
+            result.dikemasKini ||
+            "-"
+          );
+
+
+      }
+
+      catch(error) {
+
+
+        console.error(
+          error
+        );
+
+
+        paparError(
+
+          "❌ Dashboard gagal dimuatkan." +
+
+          "\n\n" +
+
+          error.message +
+
+          "\n\n" +
+
+          "Pastikan URL Web App Apps Script betul dan deployment telah dikemas kini."
+
+        );
+
+      }
+
+      finally {
+
+        paparLoadingMurid(false);
+
+        paparLoadingTransaksi(false);
+
+      }
+
+    }
+
+
+    /* =====================================================
+       PAPAR STATISTIK
+       ===================================================== */
+
+    function paparStatistik(
+      data
+    ) {
+
+      document.getElementById(
+        "jumlahMurid"
+      ).textContent =
+
+        data.jumlahMurid || 0;
+
+
+      document.getElementById(
+        "dalamAsrama"
+      ).textContent =
+
+        data.dalamAsrama || 0;
+
+
+      document.getElementById(
+        "diLuar"
+      ).textContent =
+
+        data.diLuar || 0;
+
+
+      document.getElementById(
+        "tidakDiketahui"
+      ).textContent =
+
+        data.tidakDiketahui || 0;
+
+
+      const unknownBox =
+        document.getElementById(
+          "unknownBox"
+        );
+
+
+      if (
+        Number(
+          data.tidakDiketahui || 0
+        ) > 0
+      ) {
+
+        unknownBox.style.display =
+          "block";
+
+      }
+
+      else {
+
+        unknownBox.style.display =
+          "none";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       PAPAR SENARAI MURID
+       ===================================================== */
+
+    function paparSenaraiMurid(
+      senarai
+    ) {
+
+      const container =
+        document.getElementById(
+          "studentList"
+        );
+
+
+      container.innerHTML =
+        "";
+
+
+      if (
+        !senarai ||
+        senarai.length === 0
+      ) {
+
+        container.innerHTML =
+
+          '<div class="empty">' +
+
+          'Tiada data murid.' +
+
+          '</div>';
+
+        return;
+
+      }
+
+
+      senarai.forEach(
+        function(murid) {
+
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "student";
+
+
+          const status =
+            String(
+              murid.status || ""
+            ).trim();
+
+
+          const upper =
+            status.toUpperCase();
+
+
+          let badgeClass =
+            "badge-unknown";
+
+
+          let badgeText =
+            status ||
+            "Tidak Diketahui";
+
+
+          if (
+            upper ===
+            "DALAM ASRAMA"
+          ) {
+
+            badgeClass =
+              "badge-dalam";
+
+            badgeText =
+              "🟢 DALAM ASRAMA";
+
+          }
+
+          else if (
+            upper ===
+            "DI LUAR"
+          ) {
+
+            badgeClass =
+              "badge-luar";
+
+            badgeText =
+              "🔴 DI LUAR";
+
+          }
+
+
+          item.innerHTML =
+
+            '<div class="student-top">' +
+
+              '<div>' +
+
+                '<div class="student-name">' +
+
+                  escapeHTML(
+                    murid.nama ||
+                    "-"
+                  ) +
+
+                '</div>' +
+
+                '<div class="student-id">' +
+
+                  'ID: ' +
+
+                  escapeHTML(
+                    murid.id ||
+                    "-"
+                  ) +
+
+                '</div>' +
+
+              '</div>' +
+
+              '<span class="badge ' +
+
+                badgeClass +
+
+              '">' +
+
+                escapeHTML(
+                  badgeText
+                ) +
+
+              '</span>' +
+
+            '</div>' +
+
+
+            '<div class="student-info">' +
+
+              '📚 ' +
+
+              escapeHTML(
+                murid.tahun ||
+                "-"
+              ) +
+
+              ' &nbsp; | &nbsp; ' +
+
+              '🏫 ' +
+
+              escapeHTML(
+                murid.kelas ||
+                "-"
+              ) +
+
+              '<br>' +
+
+              '🛏️ Dorm: ' +
+
+              escapeHTML(
+                murid.dorm ||
+                "-"
+              ) +
+
+              ' &nbsp; | &nbsp; ' +
+
+              '👤 ' +
+
+              escapeHTML(
+                murid.jantina ||
+                "-"
+              ) +
+
+            '</div>';
+
+
+          container.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       TAPIS MURID
+       ===================================================== */
+
+    function tapisMurid() {
+
+      const keyword =
+        document.getElementById(
+          "searchInput"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+      if (!keyword) {
+
+        paparSenaraiMurid(
+          semuaMurid
+        );
+
+        return;
+
+      }
+
+
+      const hasil =
+        semuaMurid.filter(
+          function(murid) {
+
+            const text =
+
+              (
+                murid.nama || ""
+              ) +
+
+              " " +
+
+              (
+                murid.id || ""
+              ) +
+
+              " " +
+
+              (
+                murid.tahun || ""
+              ) +
+
+              " " +
+
+              (
+                murid.kelas || ""
+              ) +
+
+              " " +
+
+              (
+                murid.dorm || ""
+              ) +
+
+              " " +
+
+              (
+                murid.status || ""
+              );
+
+
+            return text
+              .toLowerCase()
+              .includes(
+                keyword
+              );
+
+          }
+        );
+
+
+      paparSenaraiMurid(
+        hasil
+      );
+
+    }
+
+
+    /* =====================================================
+       PAPAR TRANSAKSI
+       ===================================================== */
+
+    function paparTransaksi(
+      senarai
+    ) {
+
+      const container =
+        document.getElementById(
+          "transactionList"
+        );
+
+
+      container.innerHTML =
+        "";
+
+
+      if (
+        !senarai ||
+        senarai.length === 0
+      ) {
+
+        container.innerHTML =
+
+          '<div class="empty">' +
+
+          'Tiada transaksi terkini.' +
+
+          '</div>';
+
+        return;
+
+      }
+
+
+      senarai.forEach(
+        function(transaksi) {
+
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "transaction";
+
+
+          const status =
+            String(
+              transaksi.status ||
+              ""
+            )
+            .trim()
+            .toUpperCase();
+
+
+          const masuk =
+            status ===
+            "MASUK";
+
+
+          const statusClass =
+            masuk
+              ? "transaction-masuk"
+              : "transaction-keluar";
+
+
+          const statusText =
+            masuk
+              ? "🟢 MASUK"
+              : "🔴 KELUAR";
+
+
+          item.innerHTML =
+
+            '<div class="transaction-top">' +
+
+              '<div>' +
+
+                '<div class="transaction-name">' +
+
+                  escapeHTML(
+                    transaksi.nama ||
+                    "-"
+                  ) +
+
+                '</div>' +
+
+                '<div class="student-id">' +
+
+                  'ID: ' +
+
+                  escapeHTML(
+                    transaksi.id ||
+                    "-"
+                  ) +
+
+                '</div>' +
+
+              '</div>' +
+
+              '<span class="transaction-status ' +
+
+                statusClass +
+
+              '">' +
+
+                statusText +
+
+              '</span>' +
+
+            '</div>' +
+
+
+            '<div class="transaction-details">' +
+
+              '🕐 ' +
+
+              escapeHTML(
+                transaksi.timestamp ||
+                "-"
+              ) +
+
+              '<br>' +
+
+              '🏫 ' +
+
+              escapeHTML(
+                transaksi.kelas ||
+                "-"
+              ) +
+
+              ' &nbsp; | &nbsp; ' +
+
+              '🛏️ ' +
+
+              escapeHTML(
+                transaksi.dorm ||
+                "-"
+              ) +
+
+              '<br>' +
+
+              '👤 Warden: ' +
+
+              escapeHTML(
+                transaksi.warden ||
+                "WEB APP"
+              ) +
+
+              '<br>' +
+
+              '📱 ' +
+
+              escapeHTML(
+                transaksi.peranti ||
+                "-"
+              ) +
+
+            '</div>';
+
+
+          container.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       LOADING MURID
+       ===================================================== */
+
+    function paparLoadingMurid(
+      aktif
+    ) {
+
+      document.getElementById(
+        "studentLoading"
+      ).style.display =
+
+        aktif
+          ? "block"
+          : "none";
+
+    }
+
+
+    /* =====================================================
+       LOADING TRANSAKSI
+       ===================================================== */
+
+    function paparLoadingTransaksi(
+      aktif
+    ) {
+
+      document.getElementById(
+        "transactionLoading"
+      ).style.display =
+
+        aktif
+          ? "block"
+          : "none";
+
+    }
+
+
+    /* =====================================================
+       ERROR
+       ===================================================== */
+
+    function paparError(
+      mesej
+    ) {
+
+      const box =
+        document.getElementById(
+          "errorBox"
+        );
+
+
+      if (!mesej) {
+
+        box.style.display =
+          "none";
+
+        box.textContent =
+          "";
+
+        return;
+
+      }
+
+
+      box.textContent =
+        mesej;
+
+
+      box.style.display =
+        "block";
+
+    }
+
+
+    /* =====================================================
+       BUKA SCANNER
+       ===================================================== */
+
+    function bukaScanner() {
+
+      window.location.href =
+        "index.html";
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHTML(
+      value
+    ) {
+
+      return String(
+        value === null ||
+        value === undefined
+          ? ""
+          : value
+      )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+    }
+
+
+    /* =====================================================
+       AUTO REFRESH
+       ===================================================== */
+
+    setInterval(
+      function() {
+
+        muatDashboard();
+
+      },
+      30000
+    );
+
+
+  </script>
+
+
+</body>
+
+</html>
