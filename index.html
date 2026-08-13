@@ -228,6 +228,12 @@ button {
 
 }
 
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+
 
 .btn-start {
 
@@ -929,6 +935,7 @@ input:focus {
   <!-- MASUK -->
 
   <button
+    id="btnMasuk"
     class="btn-masuk"
     onclick="sahkanTransaksi('MASUK')">
 
@@ -940,6 +947,7 @@ input:focus {
   <!-- KELUAR -->
 
   <button
+    id="btnKeluar"
     class="btn-keluar"
     onclick="sahkanTransaksi('KELUAR')">
 
@@ -1530,6 +1538,9 @@ function paparMurid(
   }
 
 
+  kemasKiniButangTransaksi(status);
+
+
   document
     .getElementById(
       "resultCard"
@@ -1561,6 +1572,38 @@ function paparMurid(
    SAHKAN TRANSAKSI
    ===================================================== */
 
+function kemasKiniButangTransaksi(status) {
+
+  const btnMasuk = document.getElementById("btnMasuk");
+  const btnKeluar = document.getElementById("btnKeluar");
+
+  if (!btnMasuk || !btnKeluar) return;
+
+  const statusNormal = String(status || "").trim().toUpperCase();
+
+  if (statusNormal === "DALAM ASRAMA" || statusNormal === "DALAM") {
+    btnMasuk.disabled = true;
+    btnKeluar.disabled = false;
+    btnMasuk.title = "Murid sudah berada dalam asrama.";
+    btnKeluar.title = "Keluarkan murid dari asrama.";
+    return;
+  }
+
+  if (statusNormal === "DI LUAR" || statusNormal === "LUAR") {
+    btnMasuk.disabled = false;
+    btnKeluar.disabled = true;
+    btnMasuk.title = "Daftarkan murid masuk ke asrama.";
+    btnKeluar.title = "Murid masih berada di luar asrama.";
+    return;
+  }
+
+  btnMasuk.disabled = true;
+  btnKeluar.disabled = true;
+  btnMasuk.title = "Status murid tidak dikenali.";
+  btnKeluar.title = "Status murid tidak dikenali.";
+}
+
+
 function sahkanTransaksi(
   status
 ) {
@@ -1576,6 +1619,23 @@ function sahkanTransaksi(
 
     return;
 
+  }
+
+
+  const statusSemasa = String(muridSemasa.status || "").trim().toUpperCase();
+
+  if (status === "MASUK" &&
+      (statusSemasa === "DALAM ASRAMA" || statusSemasa === "DALAM")) {
+    alert("⚠️ Transaksi ditolak. Murid sudah berada dalam asrama.");
+    kemasKiniButangTransaksi(statusSemasa);
+    return;
+  }
+
+  if (status === "KELUAR" &&
+      (statusSemasa === "DI LUAR" || statusSemasa === "LUAR")) {
+    alert("⚠️ Transaksi ditolak. Murid masih berada di luar.");
+    kemasKiniButangTransaksi(statusSemasa);
+    return;
   }
 
 
@@ -1777,6 +1837,9 @@ async function hantarTransaksi(
     }
 
 
+    kemasKiniButangTransaksi(muridSemasa.status);
+
+
     alert(
 
       "✅ TRANSAKSI BERJAYA\n\n" +
@@ -1939,6 +2002,9 @@ function imbasSemula() {
     )
     .textContent =
       "ID: -";
+
+
+  kemasKiniButangTransaksi("");
 
 
   document
@@ -2442,6 +2508,9 @@ window.onload = function() {
 window.addEventListener(
   "load",
   function() {
+
+
+    kemasKiniButangTransaksi("");
 
 
     paparStatus(
