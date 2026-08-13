@@ -14,7 +14,8 @@
 <title>ASRA AI – Smart Boarding Attendance</title>
 
 <!-- QR SCANNER -->
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode"
+        type="text/javascript"></script>
 
 <!-- QR GENERATOR -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -31,10 +32,20 @@
 }
 
 body {
+
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #eef3f8;
-  color: #1e293b;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+    #eef3f8;
+
+  color:
+    #263238;
+
 }
 
 
@@ -43,36 +54,50 @@ body {
 ========================================================= */
 
 .header {
-  background: linear-gradient(
-    135deg,
-    #0b3d91,
-    #1565c0
-  );
 
-  color: white;
-  text-align: center;
+  background:
+    linear-gradient(
+      135deg,
+      #0d47a1,
+      #1976d2
+    );
 
-  padding: 35px 15px;
+  color:
+    white;
 
-  box-shadow:
-    0 4px 15px rgba(0,0,0,0.15);
+  text-align:
+    center;
+
+  padding:
+    35px 20px 40px;
+
 }
 
-.logo {
-  font-size: 60px;
+.header .school-icon {
+
+  font-size:
+    70px;
+
 }
 
 .header h1 {
-  margin: 5px 0;
 
-  font-size: 38px;
-  font-weight: 800;
+  margin:
+    5px 0 8px;
+
+  font-size:
+    42px;
+
 }
 
 .header p {
-  margin: 8px 0 0;
 
-  font-size: 18px;
+  margin:
+    0;
+
+  font-size:
+    21px;
+
 }
 
 
@@ -81,12 +106,16 @@ body {
 ========================================================= */
 
 .container {
-  width: 100%;
-  max-width: 650px;
 
-  margin: auto;
+  width:
+    94%;
 
-  padding: 18px;
+  max-width:
+    900px;
+
+  margin:
+    25px auto 60px;
+
 }
 
 
@@ -95,16 +124,23 @@ body {
 ========================================================= */
 
 .card {
-  background: white;
 
-  border-radius: 22px;
+  background:
+    white;
 
-  padding: 25px;
+  border-radius:
+    28px;
 
-  margin-bottom: 20px;
+  padding:
+    28px;
+
+  margin-bottom:
+    25px;
 
   box-shadow:
-    0 5px 20px rgba(15,23,42,0.08);
+    0 8px 25px
+    rgba(0,0,0,.08);
+
 }
 
 
@@ -112,51 +148,62 @@ body {
    TAJUK
 ========================================================= */
 
-.section-title {
+.title {
 
-  text-align: center;
+  text-align:
+    center;
 
-  color: #0b3d91;
+  color:
+    #0d47a1;
 
-  font-size: 28px;
+  font-size:
+    30px;
 
-  margin-top: 0;
+  font-weight:
+    bold;
+
+  margin-bottom:
+    18px;
+
+}
+
+.description {
+
+  text-align:
+    center;
+
+  color:
+    #687789;
+
+  font-size:
+    18px;
+
+  line-height:
+    1.7;
+
 }
 
 
 /* =========================================================
-   ARAHAN
-========================================================= */
-
-.instruction {
-
-  text-align: center;
-
-  color: #64748b;
-
-  font-size: 17px;
-
-  line-height: 1.6;
-}
-
-
-/* =========================================================
-   SCANNER
+   CAMERA
 ========================================================= */
 
 #reader {
 
-  width: 100%;
+  width:
+    100%;
 
-  max-width: 550px;
+  max-width:
+    600px;
 
-  margin: 20px auto;
+  margin:
+    20px auto;
 
-}
+  overflow:
+    hidden;
 
-#reader video {
-
-  border-radius: 18px;
+  border-radius:
+    20px;
 
 }
 
@@ -167,67 +214,232 @@ body {
 
 button {
 
-  width: 100%;
+  width:
+    100%;
 
-  border: none;
+  border:
+    none;
 
-  border-radius: 15px;
+  border-radius:
+    18px;
 
-  padding: 17px;
+  padding:
+    18px;
 
-  margin-top: 12px;
+  margin-top:
+    12px;
 
-  font-size: 18px;
+  font-size:
+    21px;
 
-  font-weight: bold;
+  font-weight:
+    bold;
 
-  cursor: pointer;
-}
-
-button:active {
-
-  transform: scale(0.98);
+  cursor:
+    pointer;
 
 }
 
 
 .btn-camera {
 
-  background: #0b3d91;
+  background:
+    #0d47a1;
 
-  color: white;
+  color:
+    white;
+
 }
 
+.btn-masuk {
+
+  background:
+    #16a34a;
+
+  color:
+    white;
+
+}
+
+.btn-keluar {
+
+  background:
+    #ef9a9a;
+
+  color:
+    white;
+
+}
 
 .btn-next {
 
-  background: #475569;
+  background:
+    #455a64;
 
-  color: white;
+  color:
+    white;
+
 }
-
 
 .btn-generate {
 
-  background: #16a34a;
+  background:
+    #f5b700;
 
-  color: white;
+  color:
+    #263238;
+
 }
-
 
 .btn-download {
 
-  background: #2563eb;
+  background:
+    #1565c0;
 
-  color: white;
+  color:
+    white;
+
 }
-
 
 .btn-print {
 
-  background: #7c3aed;
+  background:
+    #37474f;
 
-  color: white;
+  color:
+    white;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-box {
+
+  padding:
+    20px;
+
+  border-radius:
+    20px;
+
+  text-align:
+    center;
+
+  font-size:
+    24px;
+
+  font-weight:
+    bold;
+
+  margin:
+    20px 0;
+
+}
+
+.status-luar {
+
+  background:
+    #ffdddd;
+
+  color:
+    #a01c1c;
+
+}
+
+.status-asrama {
+
+  background:
+    #d8f5df;
+
+  color:
+    #176b2c;
+
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.result {
+
+  display:
+    none;
+
+}
+
+.student-name {
+
+  text-align:
+    center;
+
+  font-size:
+    35px;
+
+  font-weight:
+    bold;
+
+  color:
+    #0d47a1;
+
+}
+
+.student-id {
+
+  text-align:
+    center;
+
+  font-size:
+    24px;
+
+  color:
+    #687789;
+
+  margin-bottom:
+    25px;
+
+}
+
+
+.info {
+
+  background:
+    #f7f9fc;
+
+  border-radius:
+    20px;
+
+  padding:
+    20px;
+
+  margin:
+    12px 0;
+
+}
+
+.info-label {
+
+  color:
+    #6c7885;
+
+  font-size:
+    18px;
+
+}
+
+.info-value {
+
+  font-size:
+    27px;
+
+  font-weight:
+    bold;
+
+  margin-top:
+    7px;
+
 }
 
 
@@ -237,191 +449,81 @@ button:active {
 
 .message {
 
-  display: none;
+  display:
+    none;
 
-  padding: 16px;
+  padding:
+    18px;
 
-  margin-bottom: 15px;
+  border-radius:
+    18px;
 
-  border-radius: 15px;
+  text-align:
+    center;
 
-  text-align: center;
+  font-size:
+    19px;
 
-  font-weight: bold;
+  font-weight:
+    bold;
 
-  font-size: 17px;
+  margin:
+    15px 0;
 
-  line-height: 1.5;
 }
 
+.message.success {
 
-.success {
+  display:
+    block;
 
-  display: block;
+  background:
+    #d9f7df;
 
-  background: #dcfce7;
+  color:
+    #176b2c;
 
-  color: #166534;
-
-  border: 1px solid #86efac;
 }
 
+.message.error {
 
-.error {
+  display:
+    block;
 
-  display: block;
+  background:
+    #ffe0e0;
 
-  background: #fee2e2;
+  color:
+    #a01c1c;
 
-  color: #991b1b;
-
-  border: 1px solid #fca5a5;
-}
-
-
-.info {
-
-  display: block;
-
-  background: #dbeafe;
-
-  color: #1e40af;
-
-  border: 1px solid #93c5fd;
 }
 
 
 /* =========================================================
-   RESULT
+   WARDEN
 ========================================================= */
 
-#resultCard {
+input {
 
-  display: none;
-}
+  width:
+    100%;
 
+  padding:
+    17px;
 
-.result-success {
+  border:
+    2px solid
+    #d5dce5;
 
-  background: #ecfdf5;
+  border-radius:
+    15px;
 
-  border: 2px solid #86efac;
+  font-size:
+    18px;
 
-  border-radius: 18px;
+  margin:
+    10px 0;
 
-  padding: 20px;
-
-  text-align: center;
-}
-
-
-.result-icon {
-
-  font-size: 55px;
-}
-
-
-.result-title {
-
-  color: #166534;
-
-  font-size: 24px;
-
-  font-weight: bold;
-}
-
-
-.student-id {
-
-  color: #0b3d91;
-
-  font-size: 38px;
-
-  font-weight: 800;
-
-  margin: 12px 0;
-}
-
-
-/* =========================================================
-   MAKLUMAT MURID
-========================================================= */
-
-.info-grid {
-
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 12px;
-
-  margin-top: 20px;
-}
-
-
-.info-box {
-
-  background: #f8fafc;
-
-  border-radius: 14px;
-
-  padding: 15px;
-}
-
-
-.info-label {
-
-  color: #64748b;
-
-  font-size: 13px;
-
-  margin-bottom: 5px;
-}
-
-
-.info-value {
-
-  font-size: 18px;
-
-  font-weight: bold;
-
-  color: #1e293b;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status {
-
-  margin-top: 18px;
-
-  padding: 17px;
-
-  border-radius: 15px;
-
-  font-size: 19px;
-
-  font-weight: bold;
-
-  text-align: center;
-}
-
-
-.status-luar {
-
-  background: #fee2e2;
-
-  color: #991b1b;
-}
-
-
-.status-dalam {
-
-  background: #dcfce7;
-
-  color: #166534;
 }
 
 
@@ -429,94 +531,91 @@ button:active {
    QR GENERATOR
 ========================================================= */
 
-.generator-input {
-
-  width: 100%;
-
-  padding: 16px;
-
-  border: 2px solid #cbd5e1;
-
-  border-radius: 12px;
-
-  font-size: 18px;
-
-  margin-top: 10px;
-}
-
-
-.generator-input:focus {
-
-  outline: none;
-
-  border-color: #1565c0;
-}
-
-
 #qrcode {
 
-  display: flex;
+  display:
+    flex;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  align-items: center;
+  align-items:
+    center;
 
-  margin: 25px auto;
+  margin:
+    25px auto;
 
-  min-height: 20px;
+  min-height:
+    20px;
+
 }
 
+.qr-id {
 
-#qrResult {
+  text-align:
+    center;
 
-  display: none;
+  font-size:
+    25px;
+
+  font-weight:
+    bold;
+
+  color:
+    #0d47a1;
+
 }
 
 
 /* =========================================================
-   FOOTER
+   LOADING
 ========================================================= */
 
-.footer {
+.loading {
 
-  text-align: center;
+  display:
+    none;
 
-  padding: 25px;
+  text-align:
+    center;
 
-  color: #64748b;
+  padding:
+    15px;
 
-  font-size: 13px;
+  font-size:
+    18px;
+
+  color:
+    #0d47a1;
+
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   MOBILE
 ========================================================= */
 
-@media (max-width: 500px) {
+@media(max-width:600px) {
 
   .header h1 {
-
-    font-size: 30px;
-
+    font-size: 34px;
   }
 
   .header p {
-
-    font-size: 16px;
-
+    font-size: 18px;
   }
 
-  .section-title {
-
-    font-size: 24px;
-
+  .title {
+    font-size: 26px;
   }
 
-  .info-grid {
+  .student-name {
+    font-size: 30px;
+  }
 
-    grid-template-columns: 1fr;
-
+  .card {
+    padding: 20px;
+    border-radius: 22px;
   }
 
 }
@@ -529,13 +628,13 @@ button:active {
 <body>
 
 
-<!-- =========================================================
+<!-- =======================================================
      HEADER
-========================================================= -->
+======================================================== -->
 
 <div class="header">
 
-  <div class="logo">
+  <div class="school-icon">
     🏫
   </div>
 
@@ -554,42 +653,41 @@ button:active {
 <div class="container">
 
 
-<!-- =========================================================
+<!-- =======================================================
      MESSAGE
-========================================================= -->
+======================================================== -->
 
 <div id="message"
      class="message">
 </div>
 
 
-
-<!-- =========================================================
-     QR SCANNER
-========================================================= -->
+<!-- =======================================================
+     SCANNER
+======================================================== -->
 
 <div class="card">
 
-  <h2 class="section-title">
+  <div class="title">
     📷 Imbas QR Murid
-  </h2>
+  </div>
 
-  <p class="instruction">
+  <div class="description">
 
-    Tekan <b>"Buka Kamera"</b> kemudian
-    halakan kamera belakang telefon
-    kepada QR Code murid.
+    Tekan <b>"Buka Kamera"</b>
+    kemudian halakan kamera belakang
+    telefon kepada QR Code murid.
 
-  </p>
+  </div>
 
 
-  <div id="reader"></div>
+  <div id="reader">
+  </div>
 
 
   <button
-    id="cameraButton"
     class="btn-camera"
-    onclick="bukaKamera()">
+    onclick="mulaKamera()">
 
     📷 Buka Kamera
 
@@ -597,42 +695,60 @@ button:active {
 
 
   <button
-    id="nextButton"
     class="btn-next"
-    onclick="resetScanner()"
-    style="display:none;">
+    onclick="hentikanKamera()">
 
-    📷 Imbas Murid Seterusnya
+    ⏹️ Tutup Kamera
 
   </button>
+
+
+  <div id="scannerStatus"
+       class="message">
+  </div>
 
 </div>
 
 
 
-<!-- =========================================================
-     HASIL SCAN
-========================================================= -->
+<!-- =======================================================
+     MAKLUMAT MURID
+======================================================== -->
 
-<div id="resultCard"
-     class="card">
+<div id="result"
+     class="card result">
 
-  <div class="result-success">
+  <div class="title">
+    ✅ QR BERJAYA DIBACA
+  </div>
 
-    <div class="result-icon">
-      ✅
+
+  <div class="student-name"
+       id="namaMurid">
+
+    -
+
+  </div>
+
+
+  <div class="student-id">
+
+    ID:
+    <span id="idMurid">
+      -
+    </span>
+
+  </div>
+
+
+  <div class="info">
+
+    <div class="info-label">
+      📚 Tahun
     </div>
 
-    <div class="result-title">
-      QR BERJAYA DIBACA
-    </div>
-
-    <div>
-      ID Murid:
-    </div>
-
-    <div id="studentId"
-         class="student-id">
+    <div class="info-value"
+         id="tahunMurid">
 
       -
 
@@ -641,118 +757,105 @@ button:active {
   </div>
 
 
-  <div class="info-grid">
+  <div class="info">
 
-
-    <div class="info-box">
-
-      <div class="info-label">
-        👤 Nama
-      </div>
-
-      <div id="studentName"
-           class="info-value">
-
-        -
-
-      </div>
-
+    <div class="info-label">
+      🏫 Kelas
     </div>
 
+    <div class="info-value"
+         id="kelasMurid">
 
-    <div class="info-box">
-
-      <div class="info-label">
-        🎓 Tahun
-      </div>
-
-      <div id="studentYear"
-           class="info-value">
-
-        -
-
-      </div>
-
-    </div>
-
-
-    <div class="info-box">
-
-      <div class="info-label">
-        🏫 Kelas
-      </div>
-
-      <div id="studentClass"
-           class="info-value">
-
-        -
-
-      </div>
-
-    </div>
-
-
-    <div class="info-box">
-
-      <div class="info-label">
-        🛏️ Dorm
-      </div>
-
-      <div id="studentDorm"
-           class="info-value">
-
-        -
-
-      </div>
-
-    </div>
-
-
-    <div class="info-box">
-
-      <div class="info-label">
-        🪪 No KP / MyKid
-      </div>
-
-      <div id="studentKP"
-           class="info-value">
-
-        -
-
-      </div>
-
-    </div>
-
-
-    <div class="info-box">
-
-      <div class="info-label">
-        👤 Jantina
-      </div>
-
-      <div id="studentGender"
-           class="info-value">
-
-        -
-
-      </div>
+      -
 
     </div>
 
   </div>
 
 
-  <div id="studentStatus"
-       class="status">
+  <div class="info">
+
+    <div class="info-label">
+      🛏️ Dorm
+    </div>
+
+    <div class="info-value"
+         id="dormMurid">
+
+      -
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <div class="info-label">
+      👤 Jantina
+    </div>
+
+    <div class="info-value"
+         id="jantinaMurid">
+
+      -
+
+    </div>
+
+  </div>
+
+
+  <div id="statusMurid"
+       class="status-box">
 
     Status: -
 
   </div>
 
 
+  <!-- WARDEN -->
+
+  <div class="title"
+       style="font-size:23px">
+
+    👨‍🏫 Warden
+
+  </div>
+
+
+  <input
+    type="text"
+    id="warden"
+    placeholder="Masukkan nama / ID warden">
+
+
+  <!-- MASUK -->
+
+  <button
+    class="btn-masuk"
+    onclick="sahkanTransaksi('MASUK')">
+
+    🟢 MASUK ASRAMA
+
+  </button>
+
+
+  <!-- KELUAR -->
+
+  <button
+    class="btn-keluar"
+    onclick="sahkanTransaksi('KELUAR')">
+
+    🔴 KELUAR ASRAMA
+
+  </button>
+
+
+  <!-- SCAN SETERUSNYA -->
+
   <button
     class="btn-next"
-    onclick="resetScanner()">
+    onclick="imbasSeterusnya()">
 
     📷 Imbas Murid Seterusnya
 
@@ -762,17 +865,33 @@ button:active {
 
 
 
-<!-- =========================================================
+<!-- =======================================================
+     LOADING
+======================================================== -->
+
+<div id="loading"
+     class="loading">
+
+  ⏳ Sedang memproses transaksi...
+
+</div>
+
+
+
+<!-- =======================================================
      QR GENERATOR
-========================================================= -->
+======================================================== -->
 
 <div class="card">
 
-  <h2 class="section-title">
-    🔑 QR Generator Murid
-  </h2>
+  <div class="title">
 
-  <p class="instruction">
+    🔑 QR Generator Murid
+
+  </div>
+
+
+  <div class="description">
 
     Masukkan ID Murid untuk menghasilkan
     QR Code.
@@ -780,85 +899,54 @@ button:active {
     <br>
 
     Contoh:
-
     <b>TEST001</b>
 
-  </p>
+  </div>
 
 
   <input
-    id="qrInput"
-    class="generator-input"
     type="text"
-    placeholder="Masukkan ID Murid"
-    value="TEST001">
+    id="generatorID"
+    placeholder="Contoh: TEST001">
 
 
   <button
     class="btn-generate"
     onclick="janaQR()">
 
-    🔑 Jana QR Code
+    🔑 Jana QR
 
   </button>
 
 
-  <div id="qrResult">
-
-    <h3 style="text-align:center;">
-      QR Code Murid
-    </h3>
-
-    <div id="qrcode"></div>
-
-    <p style="text-align:center;color:#64748b;">
-
-      ID:
-
-      <b id="qrIdDisplay">
-        TEST001
-      </b>
-
-    </p>
-
-
-    <button
-      class="btn-download"
-      onclick="muatTurunQR()">
-
-      ⬇️ Muat Turun QR
-
-    </button>
-
-
-    <button
-      class="btn-print"
-      onclick="cetakQR()">
-
-      🖨️ Cetak QR
-
-    </button>
-
+  <div id="qrcode">
   </div>
 
+
+  <div id="qrID"
+       class="qr-id">
+  </div>
+
+
+  <button
+    class="btn-download"
+    onclick="muatTurunQR()">
+
+    ⬇️ Muat Turun QR
+
+  </button>
+
+
+  <button
+    class="btn-print"
+    onclick="cetakQR()">
+
+    🖨️ Cetak QR
+
+  </button>
+
 </div>
 
-
-</div>
-
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<div class="footer">
-
-  ASRA AI © 2026
-
-  <br>
-
-  Smart Boarding Attendance System
 
 </div>
 
@@ -867,527 +955,24 @@ button:active {
 <script>
 
 /* =========================================================
-   KONFIGURASI API
+   URL WEB APP APPS SCRIPT
 ========================================================= */
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbyDfyEbn-9eW5pg8QKQfGBlgqUYcy152Va_yc8P9bsmKeKCwBM8fRSphFKwjMagl8zp/exec";
+"https://script.google.com/macros/s/AKfycbyDfyEbn-9eW5pg8QKQfGBlgqUYcy152Va_yc8P9bsmKeKCwBM8fRSphFKwjMagl8zp/exec";
 
 
 /* =========================================================
    PEMBOLEH UBAH
 ========================================================= */
 
-let qrScanner = null;
+let scanner = null;
 
 let scannerAktif = false;
 
-let sedangProses = false;
+let muridSemasa = null;
 
-
-
-/* =========================================================
-   APABILA PAGE DIBUKA
-========================================================= */
-
-window.addEventListener(
-  "load",
-  function() {
-
-    paparMesej(
-      "Tekan 'Buka Kamera' untuk memulakan imbasan.",
-      "info"
-    );
-
-  }
-);
-
-
-
-/* =========================================================
-   BUKA KAMERA
-========================================================= */
-
-function bukaKamera() {
-
-  if (scannerAktif) {
-
-    return;
-
-  }
-
-
-  paparMesej(
-    "📷 Memulakan kamera...",
-    "info"
-  );
-
-
-  qrScanner =
-    new Html5Qrcode("reader");
-
-
-  const config = {
-
-    fps: 10,
-
-    qrbox: {
-      width: 250,
-      height: 250
-    },
-
-    aspectRatio: 1.0
-
-  };
-
-
-  qrScanner.start(
-
-    {
-      facingMode: {
-        exact: "environment"
-      }
-    },
-
-    config,
-
-    qrBerjaya,
-
-    function(errorMessage) {
-
-      // Abaikan error frame scanning
-
-    }
-
-  )
-
-  .then(
-
-    function() {
-
-      scannerAktif = true;
-
-      document.getElementById(
-        "cameraButton"
-      ).style.display = "none";
-
-
-      paparMesej(
-        "📷 Kamera aktif. Halakan kamera kepada QR Code.",
-        "info"
-      );
-
-    }
-
-  )
-
-  .catch(
-
-    function(error) {
-
-      console.error(error);
-
-      scannerAktif = false;
-
-      paparMesej(
-
-        "❌ Kamera tidak dapat dibuka.\n\n" +
-
-        "Pastikan laman menggunakan HTTPS " +
-
-        "dan kebenaran kamera telah diberikan.",
-
-        "error"
-
-      );
-
-    }
-
-  );
-
-}
-
-
-
-/* =========================================================
-   QR BERJAYA DIBACA
-========================================================= */
-
-function qrBerjaya(qrMessage) {
-
-  if (sedangProses) {
-
-    return;
-
-  }
-
-
-  sedangProses = true;
-
-
-  const idMurid =
-    String(qrMessage || "").trim();
-
-
-  if (!idMurid) {
-
-    sedangProses = false;
-
-    return;
-
-  }
-
-
-  hentikanScanner();
-
-
-  paparMesej(
-    "🔍 QR dibaca: " +
-    idMurid +
-    "\n\nMencari maklumat murid...",
-    "info"
-  );
-
-
-  cariMuridAPI(idMurid);
-
-}
-
-
-
-/* =========================================================
-   CARI MURID MELALUI API
-========================================================= */
-
-function cariMuridAPI(idMurid) {
-
-  const url =
-    API_URL +
-    "?api=murid&id=" +
-    encodeURIComponent(idMurid);
-
-
-  fetch(url)
-
-    .then(
-
-      function(response) {
-
-        if (!response.ok) {
-
-          throw new Error(
-            "API HTTP Error: " +
-            response.status
-          );
-
-        }
-
-        return response.json();
-
-      }
-
-    )
-
-    .then(
-
-      function(result) {
-
-        paparkanMurid(result);
-
-      }
-
-    )
-
-    .catch(
-
-      function(error) {
-
-        console.error(error);
-
-        paparMesej(
-
-          "❌ Gagal mendapatkan maklumat murid.\n\n" +
-
-          error.message,
-
-          "error"
-
-        );
-
-        sedangProses = false;
-
-        document.getElementById(
-          "cameraButton"
-        ).style.display = "block";
-
-      }
-
-    );
-
-}
-
-
-
-/* =========================================================
-   PAPARKAN MURID
-========================================================= */
-
-function paparkanMurid(result) {
-
-  if (
-    !result ||
-    !result.berjaya
-  ) {
-
-    paparMesej(
-
-      "❌ " +
-
-      (
-        result
-          ? result.mesej
-          : "Murid tidak dijumpai."
-      ),
-
-      "error"
-
-    );
-
-    sedangProses = false;
-
-    document.getElementById(
-      "cameraButton"
-    ).style.display = "block";
-
-    return;
-
-  }
-
-
-  const murid =
-    result.murid;
-
-
-  document.getElementById(
-    "studentId"
-  ).textContent =
-    murid.id || "-";
-
-
-  document.getElementById(
-    "studentName"
-  ).textContent =
-    murid.nama || "-";
-
-
-  document.getElementById(
-    "studentYear"
-  ).textContent =
-    murid.tahun || "-";
-
-
-  document.getElementById(
-    "studentClass"
-  ).textContent =
-    murid.kelas || "-";
-
-
-  document.getElementById(
-    "studentDorm"
-  ).textContent =
-    murid.dorm || "-";
-
-
-  document.getElementById(
-    "studentKP"
-  ).textContent =
-    murid.kp || "-";
-
-
-  document.getElementById(
-    "studentGender"
-  ).textContent =
-    murid.jantina || "-";
-
-
-  paparkanStatus(
-    murid.status
-  );
-
-
-  document.getElementById(
-    "resultCard"
-  ).style.display =
-    "block";
-
-
-  document.getElementById(
-    "nextButton"
-  ).style.display =
-    "block";
-
-
-  document.getElementById(
-    "cameraButton"
-  ).style.display =
-    "none";
-
-
-  paparMesej(
-
-    "✅ QR berjaya dibaca.\n" +
-
-    "Maklumat murid berjaya diperoleh daripada sistem.",
-
-    "success"
-
-  );
-
-
-  sedangProses = false;
-
-}
-
-
-
-/* =========================================================
-   STATUS MURID
-========================================================= */
-
-function paparkanStatus(status) {
-
-  const element =
-    document.getElementById(
-      "studentStatus"
-    );
-
-
-  const nilai =
-    String(
-      status || ""
-    ).trim();
-
-
-  const upper =
-    nilai.toUpperCase();
-
-
-  element.textContent =
-    "Status: " +
-    (
-      nilai || "Tiada Rekod"
-    );
-
-
-  element.className =
-    "status";
-
-
-  if (
-    upper.includes("DALAM")
-  ) {
-
-    element.classList.add(
-      "status-dalam"
-    );
-
-  }
-
-  else {
-
-    element.classList.add(
-      "status-luar"
-    );
-
-  }
-
-}
-
-
-
-/* =========================================================
-   HENTIKAN SCANNER
-========================================================= */
-
-function hentikanScanner() {
-
-  if (
-    qrScanner &&
-    scannerAktif
-  ) {
-
-    qrScanner
-      .stop()
-
-      .then(
-
-        function() {
-
-          scannerAktif = false;
-
-        }
-
-      )
-
-      .catch(
-
-        function() {
-
-          scannerAktif = false;
-
-        }
-
-      );
-
-  }
-
-  else {
-
-    scannerAktif = false;
-
-  }
-
-}
-
-
-
-/* =========================================================
-   RESET SCANNER
-========================================================= */
-
-function resetScanner() {
-
-  hentikanScanner();
-
-
-  sedangProses = false;
-
-
-  document.getElementById(
-    "resultCard"
-  ).style.display =
-    "none";
-
-
-  document.getElementById(
-    "nextButton"
-  ).style.display =
-    "none";
-
-
-  document.getElementById(
-    "cameraButton"
-  ).style.display =
-    "block";
-
-
-  paparMesej(
-    "Tekan 'Buka Kamera' untuk mengimbas murid seterusnya.",
-    "info"
-  );
-
-}
-
+let qrCanvas = null;
 
 
 /* =========================================================
@@ -1395,26 +980,654 @@ function resetScanner() {
 ========================================================= */
 
 function paparMesej(
-  text,
-  type
+  teks,
+  jenis
 ) {
 
-  const element =
+  const box =
     document.getElementById(
       "message"
     );
 
+  box.textContent =
+    teks;
 
-  element.textContent =
-    text;
-
-
-  element.className =
+  box.className =
     "message " +
-    type;
+    jenis;
 
 }
 
+
+/* =========================================================
+   MULAKAN KAMERA
+========================================================= */
+
+async function mulaKamera() {
+
+  try {
+
+    if (scannerAktif) {
+      return;
+    }
+
+
+    scanner =
+      new Html5Qrcode(
+        "reader"
+      );
+
+
+    const config = {
+
+      fps: 10,
+
+      qrbox: {
+
+        width: 250,
+
+        height: 250
+
+      }
+
+    };
+
+
+    await scanner.start(
+
+      {
+        facingMode:
+          "environment"
+      },
+
+      config,
+
+      qrBerjaya,
+
+      function(errorMessage) {
+        // Abaikan kesilapan bacaan sementara
+      }
+
+    );
+
+
+    scannerAktif =
+      true;
+
+
+    paparMesej(
+      "📷 Kamera berjaya dibuka. Halakan kepada QR murid.",
+      "success"
+    );
+
+
+  } catch(error) {
+
+    paparMesej(
+      "❌ Kamera tidak dapat dibuka: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HENTIKAN KAMERA
+========================================================= */
+
+async function hentikanKamera() {
+
+  try {
+
+    if (
+      scanner &&
+      scannerAktif
+    ) {
+
+      await scanner.stop();
+
+      await scanner.clear();
+
+    }
+
+  } catch(error) {
+
+    console.log(
+      error
+    );
+
+  }
+
+
+  scannerAktif =
+    false;
+
+}
+
+
+/* =========================================================
+   QR BERJAYA DIBACA
+========================================================= */
+
+async function qrBerjaya(
+  decodedText
+) {
+
+  console.log(
+    "QR:",
+    decodedText
+  );
+
+
+  // Hentikan kamera dahulu
+
+  await hentikanKamera();
+
+
+  // Cari murid
+
+  await cariMurid(
+    decodedText
+  );
+
+}
+
+
+/* =========================================================
+   CARI MURID MELALUI API
+========================================================= */
+
+async function cariMurid(
+  id
+) {
+
+  try {
+
+    paparMesej(
+      "⏳ Mencari maklumat murid...",
+      "success"
+    );
+
+
+    const url =
+      API_URL +
+      "?api=murid&id=" +
+      encodeURIComponent(
+        id
+      );
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:
+            "GET"
+        }
+      );
+
+
+    if (
+      !response.ok
+    ) {
+
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "API MURID:",
+      data
+    );
+
+
+    if (
+      !data.berjaya
+    ) {
+
+      throw new Error(
+        data.mesej ||
+        "Murid tidak dijumpai."
+      );
+
+    }
+
+
+    muridSemasa =
+      data.murid;
+
+
+    paparMurid(
+      muridSemasa
+    );
+
+
+    paparMesej(
+      "✅ Maklumat murid berjaya diperoleh.",
+      "success"
+    );
+
+
+  } catch(error) {
+
+    console.error(
+      error
+    );
+
+
+    paparMesej(
+      "❌ Gagal mendapatkan maklumat murid: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   PAPAR MAKLUMAT MURID
+========================================================= */
+
+function paparMurid(
+  murid
+) {
+
+  document.getElementById(
+    "result"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "namaMurid"
+  ).textContent =
+    murid.nama || "-";
+
+
+  document.getElementById(
+    "idMurid"
+  ).textContent =
+    murid.id || "-";
+
+
+  document.getElementById(
+    "tahunMurid"
+  ).textContent =
+    murid.tahun || "-";
+
+
+  document.getElementById(
+    "kelasMurid"
+  ).textContent =
+    murid.kelas || "-";
+
+
+  document.getElementById(
+    "dormMurid"
+  ).textContent =
+    murid.dorm || "-";
+
+
+  document.getElementById(
+    "jantinaMurid"
+  ).textContent =
+    murid.jantina || "-";
+
+
+  const status =
+    document.getElementById(
+      "statusMurid"
+    );
+
+
+  const statusText =
+    murid.status ||
+    "-";
+
+
+  status.textContent =
+    "Status: " +
+    statusText;
+
+
+  if (
+    statusText
+      .toUpperCase()
+      .includes(
+        "DALAM ASRAMA"
+      )
+  ) {
+
+    status.className =
+      "status-box status-asrama";
+
+  } else {
+
+    status.className =
+      "status-box status-luar";
+
+  }
+
+}
+
+
+/* =========================================================
+   SAHKAN TRANSAKSI
+========================================================= */
+
+function sahkanTransaksi(
+  status
+) {
+
+  if (
+    !muridSemasa
+  ) {
+
+    alert(
+      "Sila imbas QR murid terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  const warden =
+    document
+      .getElementById(
+        "warden"
+      )
+      .value
+      .trim();
+
+
+  if (!warden) {
+
+    alert(
+      "Sila masukkan nama / ID warden."
+    );
+
+    document
+      .getElementById(
+        "warden"
+      )
+      .focus();
+
+    return;
+
+  }
+
+
+  const tindakan =
+    status === "MASUK"
+      ? "MASUK ASRAMA"
+      : "KELUAR ASRAMA";
+
+
+  const confirmText =
+
+`SAHKAN TRANSAKSI?
+
+Nama: ${muridSemasa.nama}
+ID: ${muridSemasa.id}
+Kelas: ${muridSemasa.kelas}
+Dorm: ${muridSemasa.dorm}
+
+Warden: ${warden}
+
+Tindakan: ${tindakan}`;
+
+
+  if (
+    !confirm(
+      confirmText
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  hantarTransaksi(
+    status,
+    warden
+  );
+
+}
+
+
+/* =========================================================
+   HANTAR TRANSAKSI KE APPS SCRIPT
+========================================================= */
+
+async function hantarTransaksi(
+  status,
+  warden
+) {
+
+  try {
+
+    document
+      .getElementById(
+        "loading"
+      )
+      .style.display =
+        "block";
+
+
+    const url =
+      API_URL +
+      "?api=transaksi" +
+      "&id=" +
+      encodeURIComponent(
+        muridSemasa.id
+      ) +
+      "&status=" +
+      encodeURIComponent(
+        status
+      ) +
+      "&warden=" +
+      encodeURIComponent(
+        warden
+      ) +
+      "&catatan=" +
+      encodeURIComponent(
+        "Transaksi melalui GitHub Pages"
+      );
+
+
+    console.log(
+      "URL TRANSAKSI:",
+      url
+    );
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:
+            "GET"
+        }
+      );
+
+
+    if (
+      !response.ok
+    ) {
+
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "API TRANSAKSI:",
+      data
+    );
+
+
+    if (
+      !data.berjaya
+    ) {
+
+      throw new Error(
+        data.mesej ||
+        "Transaksi gagal."
+      );
+
+    }
+
+
+    paparMesej(
+
+      "✅ TRANSAKSI BERJAYA! " +
+      data.data.nama +
+      " telah direkod sebagai " +
+      (
+        status === "MASUK"
+          ? "DALAM ASRAMA"
+          : "DI LUAR"
+      ) +
+      ".",
+
+      "success"
+
+    );
+
+
+    // =====================================================
+    // KEMASKINI PAPARAN STATUS
+    // =====================================================
+
+    const statusBox =
+      document.getElementById(
+        "statusMurid"
+      );
+
+
+    statusBox.textContent =
+      "Status: " +
+      data.data.statusSemasa;
+
+
+    statusBox.className =
+      status === "MASUK"
+        ? "status-box status-asrama"
+        : "status-box status-luar";
+
+
+    alert(
+      "✅ TRANSAKSI BERJAYA\n\n" +
+      "Murid: " +
+      data.data.nama +
+      "\nID: " +
+      data.data.id +
+      "\nStatus: " +
+      data.data.statusSemasa +
+      "\nMasa: " +
+      data.data.masa
+    );
+
+
+  } catch(error) {
+
+    console.error(
+      error
+    );
+
+
+    paparMesej(
+
+      "❌ TRANSAKSI GAGAL: " +
+      error.message,
+
+      "error"
+
+    );
+
+
+    alert(
+      "❌ Transaksi gagal.\n\n" +
+      error.message
+    );
+
+
+  } finally {
+
+    document
+      .getElementById(
+        "loading"
+      )
+      .style.display =
+        "none";
+
+  }
+
+}
+
+
+/* =========================================================
+   IMBAS SETERUSNYA
+========================================================= */
+
+function imbasSeterusnya() {
+
+  muridSemasa =
+    null;
+
+
+  document.getElementById(
+    "result"
+  ).style.display =
+    "none";
+
+
+  paparMesej(
+    "",
+    ""
+  );
+
+
+  window.scrollTo(
+    {
+      top: 0,
+      behavior: "smooth"
+    }
+  );
+
+
+  setTimeout(
+    function() {
+
+      mulaKamera();
+
+    },
+    500
+  );
+
+}
 
 
 /* =========================================================
@@ -1423,16 +1636,13 @@ function paparMesej(
 
 function janaQR() {
 
-  const input =
-    document.getElementById(
-      "qrInput"
-    );
-
-
   const id =
-    String(
-      input.value || ""
-    ).trim();
+    document
+      .getElementById(
+        "generatorID"
+      )
+      .value
+      .trim();
 
 
   if (!id) {
@@ -1446,31 +1656,37 @@ function janaQR() {
   }
 
 
-  const qrContainer =
+  const container =
     document.getElementById(
       "qrcode"
     );
 
 
-  qrContainer.innerHTML =
+  container.innerHTML =
     "";
+
+
+  document.getElementById(
+    "qrID"
+  ).textContent =
+    "ID Murid: " +
+    id;
 
 
   new QRCode(
 
-    qrContainer,
+    container,
 
     {
 
-      text: id,
+      text:
+        id,
 
-      width: 260,
+      width:
+        280,
 
-      height: 260,
-
-      colorDark: "#000000",
-
-      colorLight: "#ffffff",
+      height:
+        280,
 
       correctLevel:
         QRCode.CorrectLevel.H
@@ -1479,20 +1695,7 @@ function janaQR() {
 
   );
 
-
-  document.getElementById(
-    "qrIdDisplay"
-  ).textContent =
-    id;
-
-
-  document.getElementById(
-    "qrResult"
-  ).style.display =
-    "block";
-
 }
-
 
 
 /* =========================================================
@@ -1501,9 +1704,15 @@ function janaQR() {
 
 function muatTurunQR() {
 
+  const container =
+    document.getElementById(
+      "qrcode"
+    );
+
+
   const canvas =
-    document.querySelector(
-      "#qrcode canvas"
+    container.querySelector(
+      "canvas"
     );
 
 
@@ -1519,9 +1728,13 @@ function muatTurunQR() {
 
 
   const id =
-    document.getElementById(
-      "qrIdDisplay"
-    ).textContent;
+    document
+      .getElementById(
+        "generatorID"
+      )
+      .value
+      .trim() ||
+    "murid";
 
 
   const link =
@@ -1547,20 +1760,21 @@ function muatTurunQR() {
 }
 
 
-
 /* =========================================================
    CETAK QR
 ========================================================= */
 
 function cetakQR() {
 
-  const canvas =
-    document.querySelector(
-      "#qrcode canvas"
+  const container =
+    document.getElementById(
+      "qrcode"
     );
 
 
-  if (!canvas) {
+  if (
+    !container.innerHTML
+  ) {
 
     alert(
       "Sila jana QR terlebih dahulu."
@@ -1572,15 +1786,16 @@ function cetakQR() {
 
 
   const id =
-    document.getElementById(
-      "qrIdDisplay"
-    ).textContent;
+    document
+      .getElementById(
+        "generatorID"
+      )
+      .value
+      .trim();
 
 
-  const image =
-    canvas.toDataURL(
-      "image/png"
-    );
+  const qr =
+    container.innerHTML;
 
 
   const win =
@@ -1592,37 +1807,42 @@ function cetakQR() {
 
   win.document.write(`
 
+    <!DOCTYPE html>
+
     <html>
 
     <head>
 
       <title>
-        QR ${id}
+        QR Murid ${id}
       </title>
 
       <style>
 
         body {
 
-          text-align: center;
+          font-family:
+            Arial;
 
-          font-family: Arial;
+          text-align:
+            center;
 
-          padding-top: 40px;
-
-        }
-
-        img {
-
-          width: 300px;
-
-          height: 300px;
+          padding:
+            40px;
 
         }
 
         h1 {
 
-          color: #0b3d91;
+          color:
+            #0d47a1;
+
+        }
+
+        .qr {
+
+          margin:
+            30px auto;
 
         }
 
@@ -1637,22 +1857,27 @@ function cetakQR() {
       </h1>
 
       <h2>
-        QR Murid
+        QR Code Murid
       </h2>
-
-      <img src="${image}">
 
       <h2>
-        ${id}
+        ID: ${id}
       </h2>
+
+      <div class="qr">
+
+        ${qr}
+
+      </div>
 
       <script>
 
-        window.onload = function() {
+        window.onload =
+          function() {
 
-          window.print();
+            window.print();
 
-        };
+          };
 
       <\/script>
 
@@ -1664,6 +1889,43 @@ function cetakQR() {
 
 
   win.document.close();
+
+}
+
+
+/* =========================================================
+   SIMPAN NAMA WARDEN
+========================================================= */
+
+const wardenInput =
+  document.getElementById(
+    "warden"
+  );
+
+
+wardenInput.addEventListener(
+  "change",
+  function() {
+
+    localStorage.setItem(
+      "asra_warden",
+      this.value
+    );
+
+  }
+);
+
+
+const wardenSimpan =
+  localStorage.getItem(
+    "asra_warden"
+  );
+
+
+if (wardenSimpan) {
+
+  wardenInput.value =
+    wardenSimpan;
 
 }
 
