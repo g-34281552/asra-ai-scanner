@@ -2,6 +2,7 @@
 <html lang="ms">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta name="viewport"
@@ -10,37 +11,62 @@
                  maximum-scale=1.0,
                  user-scalable=no">
 
-  <title>ASRA AI - QR Scanner</title>
+  <title>ASRA AI - Smart Boarding Attendance</title>
 
-  <!-- QR SCANNER LIBRARY -->
+
+  <!-- =====================================================
+       QR SCANNER LIBRARY
+       ===================================================== -->
+
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js">
   </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
-</script>
+
+
+  <!-- =====================================================
+       QR GENERATOR LIBRARY
+       ===================================================== -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+  </script>
+
+
   <style>
 
     * {
       box-sizing: border-box;
     }
 
+
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       background: #f1f5f9;
+
       color: #1e293b;
     }
 
-    /* HEADER */
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
 
     .header {
-      background: linear-gradient(
-        135deg,
-        #0b3d91,
-        #1565c0
-      );
+
+      background:
+        linear-gradient(
+          135deg,
+          #0b3d91,
+          #1565c0
+        );
 
       color: white;
+
       text-align: center;
 
       padding: 22px 15px;
@@ -50,37 +76,52 @@
         rgba(0,0,0,0.15);
     }
 
+
     .logo {
       font-size: 42px;
     }
 
+
     .header h1 {
+
       margin: 5px 0 0;
 
       font-size: 28px;
     }
 
+
     .header p {
+
       margin: 8px 0 0;
 
       font-size: 14px;
+
       opacity: 0.9;
     }
 
-    /* CONTAINER */
+
+    /* =====================================================
+       CONTAINER
+       ===================================================== */
 
     .container {
+
       width: 100%;
-      max-width: 600px;
+
+      max-width: 620px;
 
       margin: auto;
 
       padding: 15px;
     }
 
-    /* CARD */
+
+    /* =====================================================
+       CARD
+       ===================================================== */
 
     .card {
+
       background: white;
 
       border-radius: 18px;
@@ -94,19 +135,45 @@
         rgba(15,23,42,0.08);
     }
 
-    /* TITLE */
+
+    /* =====================================================
+       SECTION TITLE
+       ===================================================== */
 
     .section-title {
+
       text-align: center;
 
       color: #0b3d91;
 
       margin-top: 0;
+
+      margin-bottom: 10px;
     }
 
-    /* QR READER */
+
+    /* =====================================================
+       INSTRUCTION
+       ===================================================== */
+
+    .instruction {
+
+      text-align: center;
+
+      color: #64748b;
+
+      line-height: 1.6;
+
+      font-size: 14px;
+    }
+
+
+    /* =====================================================
+       QR READER
+       ===================================================== */
 
     #reader {
+
       width: 100%;
 
       max-width: 500px;
@@ -114,13 +181,19 @@
       margin: 20px auto;
     }
 
+
     #reader video {
+
       border-radius: 15px;
     }
 
-    /* BUTTON */
+
+    /* =====================================================
+       BUTTON
+       ===================================================== */
 
     button {
+
       width: 100%;
 
       border: none;
@@ -131,69 +204,74 @@
 
       margin-top: 10px;
 
-      font-size: 17px;
+      font-size: 16px;
 
       font-weight: bold;
 
       cursor: pointer;
     }
 
+
+    button:active {
+
+      transform: scale(0.98);
+    }
+
+
     .btn-start {
+
       background: #0b3d91;
+
       color: white;
     }
+
 
     .btn-stop {
+
       background: #dc2626;
+
       color: white;
     }
+
 
     .btn-reset {
+
       background: #475569;
+
       color: white;
     }
 
-    /* RESULT */
 
-    #resultCard {
-      display: none;
+    .btn-generate {
 
-      text-align: center;
+      background: #7c3aed;
+
+      color: white;
     }
 
-    .success {
-      background: #dcfce7;
 
-      color: #166534;
+    .btn-download {
 
-      border: 1px solid #86efac;
+      background: #16a34a;
 
-      padding: 18px;
-
-      border-radius: 14px;
-
-      font-weight: bold;
+      color: white;
     }
 
-    .qr-id {
-      font-size: 28px;
 
-      color: #0b3d91;
+    .btn-print {
 
-      font-weight: bold;
+      background: #ea580c;
 
-      margin: 15px 0;
+      color: white;
     }
 
-    .instruction {
-      text-align: center;
 
-      color: #64748b;
-
-      line-height: 1.6;
-    }
+    /* =====================================================
+       STATUS
+       ===================================================== */
 
     .status {
+
       text-align: center;
 
       padding: 12px;
@@ -203,9 +281,15 @@
       margin-top: 12px;
 
       display: none;
+
+      white-space: pre-line;
+
+      line-height: 1.5;
     }
 
+
     .status-info {
+
       display: block;
 
       background: #dbeafe;
@@ -213,7 +297,9 @@
       color: #1e40af;
     }
 
+
     .status-error {
+
       display: block;
 
       background: #fee2e2;
@@ -221,7 +307,155 @@
       color: #991b1b;
     }
 
+
+    .status-success {
+
+      display: block;
+
+      background: #dcfce7;
+
+      color: #166534;
+    }
+
+
+    /* =====================================================
+       RESULT CARD
+       ===================================================== */
+
+    #resultCard {
+
+      display: none;
+
+      text-align: center;
+    }
+
+
+    .success {
+
+      background: #dcfce7;
+
+      color: #166534;
+
+      border:
+        1px solid #86efac;
+
+      padding: 18px;
+
+      border-radius: 14px;
+
+      font-weight: bold;
+    }
+
+
+    .qr-id {
+
+      font-size: 28px;
+
+      color: #0b3d91;
+
+      font-weight: bold;
+
+      margin: 15px 0;
+    }
+
+
+    /* =====================================================
+       QR GENERATOR
+       ===================================================== */
+
+    .generator-input {
+
+      width: 100%;
+
+      padding: 15px;
+
+      border: 2px solid #cbd5e1;
+
+      border-radius: 12px;
+
+      font-size: 18px;
+
+      text-align: center;
+
+      outline: none;
+    }
+
+
+    .generator-input:focus {
+
+      border-color: #0b3d91;
+    }
+
+
+    #qrGeneratorArea {
+
+      display: none;
+
+      text-align: center;
+
+      margin-top: 20px;
+
+      padding-top: 20px;
+
+      border-top:
+        1px solid #e2e8f0;
+    }
+
+
+    #qrcode {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      margin: 20px auto;
+    }
+
+
+    #qrcode img {
+
+      width: 250px;
+
+      height: 250px;
+
+      padding: 10px;
+
+      background: white;
+
+      border-radius: 8px;
+    }
+
+
+    .generated-id {
+
+      font-size: 22px;
+
+      font-weight: bold;
+
+      color: #0b3d91;
+
+      margin: 10px 0;
+    }
+
+
+    .qr-help {
+
+      color: #64748b;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
     .footer {
+
       text-align: center;
 
       color: #64748b;
@@ -231,20 +465,91 @@
       padding: 20px;
     }
 
-    /* MOBILE */
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
 
     @media (max-width: 450px) {
 
       .header h1 {
+
         font-size: 24px;
       }
 
+
       .card {
+
         padding: 15px;
       }
 
+
       #reader {
+
         width: 100%;
+      }
+
+
+      #qrcode img {
+
+        width: 220px;
+
+        height: 220px;
+      }
+
+    }
+
+
+    /* =====================================================
+       PRINT
+       ===================================================== */
+
+    @media print {
+
+      body * {
+
+        visibility: hidden;
+      }
+
+
+      #qrGeneratorArea,
+      #qrGeneratorArea * {
+
+        visibility: visible;
+      }
+
+
+      #qrGeneratorArea {
+
+        position: absolute;
+
+        left: 0;
+
+        top: 0;
+
+        width: 100%;
+
+        display: block !important;
+      }
+
+
+      #qrcode {
+
+        margin-top: 30px;
+      }
+
+
+      #qrcode img {
+
+        width: 300px;
+
+        height: 300px;
+      }
+
+
+      .print-hide {
+
+        display: none !important;
       }
 
     }
@@ -257,530 +562,1111 @@
 <body>
 
 
-<!-- ======================================================
-     HEADER
-     ====================================================== -->
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
 
-<div class="header">
+  <div class="header">
 
-  <div class="logo">
-    🏫
-  </div>
-
-  <h1>
-    ASRA AI
-  </h1>
-
-  <p>
-    Smart Boarding Attendance System
-  </p>
-
-</div>
-
-
-<div class="container">
-
-
-  <!-- ====================================================
-       SCANNER
-       ==================================================== -->
-
-  <div class="card">
-
-    <h2 class="section-title">
-      📷 Imbas QR Murid
-    </h2>
-
-    <p class="instruction">
-
-      Tekan <b>"Buka Kamera"</b> kemudian
-      halakan kamera belakang telefon
-      kepada QR Code murid.
-
-    </p>
-
-
-    <!-- QR SCANNER -->
-
-    <div id="reader"></div>
-
-
-    <!-- STATUS -->
-
-    <div id="status"
-         class="status">
+    <div class="logo">
+      🏫
     </div>
 
 
-    <!-- START -->
-
-    <button
-      id="startButton"
-      class="btn-start"
-      onclick="mulaScanner()">
-
-      📷 Buka Kamera
-
-    </button>
-
-
-    <!-- STOP -->
-
-    <button
-      id="stopButton"
-      class="btn-stop"
-      onclick="hentikanScanner()"
-      style="display:none;">
-
-      ⛔ Tutup Kamera
-
-    </button>
-
-  </div>
-
-
-  <!-- ====================================================
-       RESULT
-       ==================================================== -->
-
-  <div
-    id="resultCard"
-    class="card">
-
-    <div class="success">
-
-      ✅ QR BERJAYA DIBACA
-
-    </div>
+    <h1>
+      ASRA AI
+    </h1>
 
 
     <p>
-      ID Murid:
+      Smart Boarding Attendance System
     </p>
-
-
-    <div
-      id="qrId"
-      class="qr-id">
-
-      -
-
-    </div>
-
-
-    <p class="instruction">
-
-      QR Code berjaya dibaca.
-      <br>
-      ID ini akan digunakan untuk
-      mendapatkan maklumat murid.
-
-    </p>
-
-
-    <button
-      class="btn-reset"
-      onclick="imbasSemula()">
-
-      📷 Imbas Murid Seterusnya
-
-    </button>
 
   </div>
 
 
-</div>
+
+  <div class="container">
 
 
-<!-- ======================================================
-     FOOTER
-     ====================================================== -->
+    <!-- ===================================================
+         1. QR SCANNER
+         =================================================== -->
 
-<div class="footer">
+    <div class="card">
 
-  ASRA AI © 2026
-
-  <br>
-
-  Smart Boarding Attendance System
-
-</div>
+      <h2 class="section-title">
+        📷 Imbas QR Murid
+      </h2>
 
 
+      <p class="instruction">
 
-<script>
+        Tekan <b>“Buka Kamera”</b> kemudian
+        halakan kamera belakang telefon
+        kepada QR Code murid.
 
-/* =========================================================
-   PEMBOLEH UBAH
-   ========================================================= */
-
-let qrScanner = null;
-
-let scannerAktif = false;
-
-let sedangProses = false;
+      </p>
 
 
-/* =========================================================
-   MULAKAN SCANNER
-   ========================================================= */
+      <!-- QR READER -->
 
-function mulaScanner() {
-
-  if (scannerAktif) {
-
-    return;
-
-  }
+      <div id="reader"></div>
 
 
-  paparStatus(
-    "Memulakan kamera...",
-    "info"
-  );
+      <!-- STATUS -->
+
+      <div id="scannerStatus"
+           class="status">
+      </div>
 
 
-  qrScanner =
-    new Html5Qrcode("reader");
+      <!-- START CAMERA -->
+
+      <button
+        id="startButton"
+        class="btn-start"
+        onclick="mulaScanner()">
+
+        📷 Buka Kamera
+
+      </button>
 
 
-  const config = {
+      <!-- STOP CAMERA -->
 
-    fps: 10,
+      <button
+        id="stopButton"
+        class="btn-stop"
+        onclick="hentikanScanner()"
+        style="display:none;">
 
-    qrbox: function(
-      viewfinderWidth,
-      viewfinderHeight
-    ) {
+        ⛔ Tutup Kamera
 
-      const size =
-        Math.min(
+      </button>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         2. QR SCANNER RESULT
+         =================================================== -->
+
+    <div
+      id="resultCard"
+      class="card">
+
+
+      <div class="success">
+
+        ✅ QR BERJAYA DIBACA
+
+      </div>
+
+
+      <p>
+
+        ID Murid:
+
+      </p>
+
+
+      <div
+        id="qrId"
+        class="qr-id">
+
+        -
+
+      </div>
+
+
+      <p class="instruction">
+
+        QR Code berjaya dibaca.
+
+        <br>
+
+        ID ini akan digunakan untuk
+        mendapatkan maklumat murid.
+
+      </p>
+
+
+      <button
+        class="btn-reset"
+        onclick="imbasSemula()">
+
+        📷 Imbas Murid Seterusnya
+
+      </button>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         3. QR GENERATOR
+         =================================================== -->
+
+    <div class="card">
+
+      <h2 class="section-title">
+
+        🔑 QR Generator Murid
+
+      </h2>
+
+
+      <p class="instruction">
+
+        Masukkan ID Murid untuk menghasilkan
+        QR Code.
+
+        <br>
+
+        Contoh:
+
+        <b>TEST001</b>
+
+      </p>
+
+
+      <!-- ID INPUT -->
+
+      <input
+        id="generatorId"
+        class="generator-input"
+        type="text"
+        value="TEST001"
+        placeholder="Masukkan ID Murid"
+        autocomplete="off">
+
+
+      <!-- GENERATE -->
+
+      <button
+        class="btn-generate"
+        onclick="janaQR()">
+
+        🔑 Jana QR Code
+
+      </button>
+
+
+      <!-- STATUS GENERATOR -->
+
+      <div
+        id="generatorStatus"
+        class="status">
+      </div>
+
+
+      <!-- QR AREA -->
+
+      <div
+        id="qrGeneratorArea">
+
+
+        <div class="generated-id">
+
+          ID Murid:
+          <span id="generatedId">
+            TEST001
+          </span>
+
+        </div>
+
+
+        <!-- QR -->
+
+        <div id="qrcode"></div>
+
+
+        <p class="qr-help">
+
+          QR ini mengandungi ID Murid di atas.
+
+          <br>
+
+          Paparkan QR ini pada komputer
+          dan imbas menggunakan telefon.
+
+        </p>
+
+
+        <!-- DOWNLOAD -->
+
+        <button
+          class="btn-download print-hide"
+          onclick="muatTurunQR()">
+
+          ⬇️ Muat Turun QR
+
+        </button>
+
+
+        <!-- PRINT -->
+
+        <button
+          class="btn-print print-hide"
+          onclick="cetakQR()">
+
+          🖨️ Cetak QR
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <div class="footer">
+
+    ASRA AI © 2026
+
+    <br>
+
+    Smart Boarding Attendance System
+
+  </div>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script>
+
+
+    /* =====================================================
+       PEMBOLEH UBAH
+       ===================================================== */
+
+    let qrScanner = null;
+
+    let scannerAktif = false;
+
+    let sedangProses = false;
+
+
+    /* =====================================================
+       MULAKAN SCANNER
+       ===================================================== */
+
+    function mulaScanner() {
+
+
+      if (scannerAktif) {
+
+        return;
+
+      }
+
+
+      if (
+        typeof Html5Qrcode ===
+        "undefined"
+      ) {
+
+        paparScannerStatus(
+
+          "❌ Library QR Scanner tidak berjaya dimuatkan.",
+
+          "error"
+
+        );
+
+        return;
+
+      }
+
+
+      paparScannerStatus(
+
+        "📷 Memulakan kamera...",
+
+        "info"
+
+      );
+
+
+      qrScanner =
+        new Html5Qrcode(
+          "reader"
+        );
+
+
+      const config = {
+
+        fps: 10,
+
+        qrbox: function(
           viewfinderWidth,
           viewfinderHeight
-        ) * 0.70;
+        ) {
 
-      return {
-        width: size,
-        height: size
+          const size =
+
+            Math.min(
+              viewfinderWidth,
+              viewfinderHeight
+            ) * 0.70;
+
+
+          return {
+
+            width:
+              Math.floor(size),
+
+            height:
+              Math.floor(size)
+
+          };
+
+        },
+
+        aspectRatio: 1.0
+
       };
 
-    },
 
-    aspectRatio: 1.0
+      qrScanner.start(
 
-  };
+        {
+          facingMode: {
+            exact: "environment"
+          }
+        },
 
+        config,
 
-  qrScanner.start(
+        qrBerjaya,
 
-    {
-      facingMode: {
-        exact: "environment"
-      }
-    },
+        function(errorMessage) {
 
-    config,
+          /*
+           * Jangan papar error
+           * untuk setiap frame.
+           */
 
-    qrBerjaya,
+        }
 
-    function(errorMessage) {
-
-      /*
-       * Jangan papar error
-       * setiap frame.
-       */
-
-    }
-
-  )
-
-  .then(function() {
-
-    scannerAktif = true;
-
-
-    document
-      .getElementById(
-        "startButton"
       )
-      .style.display = "none";
-
-
-    document
-      .getElementById(
-        "stopButton"
-      )
-      .style.display = "block";
-
-
-    paparStatus(
-      "📷 Kamera aktif. Halakan kepada QR murid.",
-      "info"
-    );
-
-  })
-
-  .catch(function(error) {
-
-    scannerAktif = false;
-
-
-    paparStatus(
-
-      "❌ Kamera tidak dapat dibuka.\n\n" +
-
-      "Sila pastikan:\n" +
-
-      "1. Kebenaran kamera dibenarkan.\n" +
-
-      "2. Gunakan Chrome.\n" +
-
-      "3. Gunakan HTTPS.\n" +
-
-      "4. Kamera tidak sedang digunakan aplikasi lain.",
-
-      "error"
-
-    );
-
-  });
-
-}
-
-
-/* =========================================================
-   QR BERJAYA
-   ========================================================= */
-
-function qrBerjaya(
-  decodedText,
-  decodedResult
-) {
-
-  if (sedangProses) {
-
-    return;
-
-  }
-
-
-  sedangProses = true;
-
-
-  const idMurid =
-    String(
-      decodedText || ""
-    ).trim();
-
-
-  if (!idMurid) {
-
-    sedangProses = false;
-
-    return;
-
-  }
-
-
-  console.log(
-    "QR DIBACA:",
-    idMurid
-  );
-
-
-  /*
-   * Hentikan kamera
-   */
-
-  hentikanScanner();
-
-
-  /*
-   * Paparkan keputusan
-   */
-
-  document
-    .getElementById(
-      "qrId"
-    )
-    .textContent = idMurid;
-
-
-  document
-    .getElementById(
-      "resultCard"
-    )
-    .style.display = "block";
-
-
-  paparStatus(
-
-    "✅ QR berjaya dibaca.",
-
-    "info"
-
-  );
-
-
-  /*
-   * BELUM sambung ke Apps Script.
-   *
-   * Kita akan sambungkan selepas
-   * scanner berjaya diuji.
-   */
-
-}
-
-
-/* =========================================================
-   HENTIKAN SCANNER
-   ========================================================= */
-
-function hentikanScanner() {
-
-  if (
-    qrScanner &&
-    scannerAktif
-  ) {
-
-    qrScanner
-      .stop()
 
       .then(function() {
 
-        scannerAktif = false;
 
-        document
-          .getElementById(
-            "stopButton"
-          )
-          .style.display = "none";
+        scannerAktif =
+          true;
 
 
         document
           .getElementById(
             "startButton"
           )
-          .style.display = "block";
+          .style.display =
+            "none";
+
+
+        document
+          .getElementById(
+            "stopButton"
+          )
+          .style.display =
+            "block";
+
+
+        paparScannerStatus(
+
+          "📷 Kamera aktif. Halakan kepada QR Code murid.",
+
+          "info"
+
+        );
 
       })
 
       .catch(function(error) {
 
-        console.log(
-          "Scanner stop error:",
-          error
-        );
 
-        scannerAktif = false;
+        scannerAktif =
+          false;
+
+
+        paparScannerStatus(
+
+          "❌ Kamera tidak dapat dibuka.\n\n" +
+
+          "Pastikan kebenaran kamera dibenarkan.",
+
+          "error"
+
+        );
 
       });
 
-  }
-
-}
+    }
 
 
-/* =========================================================
-   IMBAS SEMULA
-   ========================================================= */
 
-function imbasSemula() {
+    /* =====================================================
+       QR BERJAYA DIBACA
+       ===================================================== */
 
-  sedangProses = false;
-
-
-  document
-    .getElementById(
-      "resultCard"
-    )
-    .style.display = "none";
+    function qrBerjaya(
+      decodedText,
+      decodedResult
+    ) {
 
 
-  document
-    .getElementById(
-      "qrId"
-    )
-    .textContent = "-";
+      if (sedangProses) {
+
+        return;
+
+      }
 
 
-  paparStatus(
-    "Tekan 'Buka Kamera' untuk imbas murid seterusnya.",
-    "info"
-  );
+      sedangProses =
+        true;
 
 
-  document
-    .getElementById(
-      "startButton"
-    )
-    .style.display = "block";
+      const idMurid =
 
-}
+        String(
+          decodedText || ""
+        ).trim();
 
 
-/* =========================================================
-   STATUS
-   ========================================================= */
+      if (!idMurid) {
 
-function paparStatus(
-  mesej,
-  jenis
-) {
+        sedangProses =
+          false;
 
-  const element =
-    document.getElementById(
-      "status"
+        return;
+
+      }
+
+
+      console.log(
+        "QR DIBACA:",
+        idMurid
+      );
+
+
+      /*
+       * Hentikan scanner.
+       */
+
+      hentikanScanner();
+
+
+      /*
+       * Paparkan keputusan.
+       */
+
+      document
+        .getElementById(
+          "qrId"
+        )
+        .textContent =
+          idMurid;
+
+
+      document
+        .getElementById(
+          "resultCard"
+        )
+        .style.display =
+          "block";
+
+
+      paparScannerStatus(
+
+        "✅ QR berjaya dibaca.",
+
+        "success"
+
+      );
+
+    }
+
+
+
+    /* =====================================================
+       HENTIKAN SCANNER
+       ===================================================== */
+
+    function hentikanScanner() {
+
+
+      if (
+        qrScanner &&
+        scannerAktif
+      ) {
+
+
+        qrScanner
+          .stop()
+
+          .then(function() {
+
+
+            scannerAktif =
+              false;
+
+
+            document
+              .getElementById(
+                "stopButton"
+              )
+              .style.display =
+                "none";
+
+
+            document
+              .getElementById(
+                "startButton"
+              )
+              .style.display =
+                "block";
+
+
+          })
+
+          .catch(function(error) {
+
+
+            console.log(
+              "Scanner stop error:",
+              error
+            );
+
+
+            scannerAktif =
+              false;
+
+          });
+
+      }
+
+    }
+
+
+
+    /* =====================================================
+       IMBAS SEMULA
+       ===================================================== */
+
+    function imbasSemula() {
+
+
+      sedangProses =
+        false;
+
+
+      document
+        .getElementById(
+          "resultCard"
+        )
+        .style.display =
+          "none";
+
+
+      document
+        .getElementById(
+          "qrId"
+        )
+        .textContent =
+          "-";
+
+
+      paparScannerStatus(
+
+        "Tekan 'Buka Kamera' untuk imbas murid seterusnya.",
+
+        "info"
+
+      );
+
+
+      document
+        .getElementById(
+          "startButton"
+        )
+        .style.display =
+          "block";
+
+    }
+
+
+
+    /* =====================================================
+       SCANNER STATUS
+       ===================================================== */
+
+    function paparScannerStatus(
+      mesej,
+      jenis
+    ) {
+
+
+      const element =
+        document.getElementById(
+          "scannerStatus"
+        );
+
+
+      element.textContent =
+        mesej;
+
+
+      element.className =
+        "status";
+
+
+      if (
+        jenis ===
+        "error"
+      ) {
+
+
+        element.classList.add(
+          "status-error"
+        );
+
+      }
+
+
+      else if (
+        jenis ===
+        "success"
+      ) {
+
+
+        element.classList.add(
+          "status-success"
+        );
+
+      }
+
+
+      else {
+
+
+        element.classList.add(
+          "status-info"
+        );
+
+      }
+
+    }
+
+
+
+    /* =====================================================
+       4. JANA QR CODE
+       ===================================================== */
+
+    function janaQR() {
+
+
+      const input =
+        document.getElementById(
+          "generatorId"
+        );
+
+
+      const idMurid =
+        String(
+          input.value || ""
+        ).trim();
+
+
+      /*
+       * Validasi.
+       */
+
+      if (!idMurid) {
+
+
+        paparGeneratorStatus(
+
+          "❌ Sila masukkan ID Murid.",
+
+          "error"
+
+        );
+
+
+        input.focus();
+
+        return;
+
+      }
+
+
+      /*
+       * Pastikan library tersedia.
+       */
+
+      if (
+        typeof QRCode ===
+        "undefined"
+      ) {
+
+
+        paparGeneratorStatus(
+
+          "❌ Library QR Generator tidak berjaya dimuatkan.",
+
+          "error"
+
+        );
+
+
+        return;
+
+      }
+
+
+      /*
+       * Kosongkan QR lama.
+       */
+
+      const qrContainer =
+        document.getElementById(
+          "qrcode"
+        );
+
+
+      qrContainer.innerHTML =
+        "";
+
+
+      /*
+       * Jana QR.
+       */
+
+      new QRCode(
+
+        qrContainer,
+
+        {
+
+          text: idMurid,
+
+          width: 250,
+
+          height: 250,
+
+          colorDark: "#000000",
+
+          colorLight: "#ffffff",
+
+          correctLevel:
+            QRCode.CorrectLevel.H
+
+        }
+
+      );
+
+
+      /*
+       * Paparkan ID.
+       */
+
+      document.getElementById(
+        "generatedId"
+      ).textContent =
+        idMurid;
+
+
+      /*
+       * Paparkan kawasan QR.
+       */
+
+      document.getElementById(
+        "qrGeneratorArea"
+      ).style.display =
+        "block";
+
+
+      paparGeneratorStatus(
+
+        "✅ QR Code berjaya dijana untuk " +
+        idMurid,
+
+        "success"
+
+      );
+
+    }
+
+
+
+    /* =====================================================
+       5. MUAT TURUN QR
+       ===================================================== */
+
+    function muatTurunQR() {
+
+
+      const qrContainer =
+        document.getElementById(
+          "qrcode"
+        );
+
+
+      /*
+       * QRCode.js menghasilkan canvas
+       * atau img bergantung kepada browser.
+       */
+
+      const canvas =
+        qrContainer.querySelector(
+          "canvas"
+        );
+
+
+      const image =
+        qrContainer.querySelector(
+          "img"
+        );
+
+
+      let dataUrl =
+        null;
+
+
+      /*
+       * Jika canvas tersedia.
+       */
+
+      if (canvas) {
+
+        dataUrl =
+          canvas.toDataURL(
+            "image/png"
+          );
+
+      }
+
+
+      /*
+       * Jika image tersedia.
+       */
+
+      else if (image) {
+
+        dataUrl =
+          image.src;
+
+      }
+
+
+      if (!dataUrl) {
+
+
+        paparGeneratorStatus(
+
+          "❌ QR belum dijana.",
+
+          "error"
+
+        );
+
+
+        return;
+
+      }
+
+
+      /*
+       * Cipta pautan download.
+       */
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      link.href =
+        dataUrl;
+
+
+      const idMurid =
+        document.getElementById(
+          "generatedId"
+        ).textContent;
+
+
+      link.download =
+        "ASRA_AI_QR_" +
+        idMurid +
+        ".png";
+
+
+      document.body.appendChild(
+        link
+      );
+
+
+      link.click();
+
+
+      document.body.removeChild(
+        link
+      );
+
+
+      paparGeneratorStatus(
+
+        "⬇️ QR berjaya disediakan untuk dimuat turun.",
+
+        "success"
+
+      );
+
+    }
+
+
+
+    /* =====================================================
+       6. CETAK QR
+       ===================================================== */
+
+    function cetakQR() {
+
+
+      const area =
+        document.getElementById(
+          "qrGeneratorArea"
+        );
+
+
+      if (
+        area.style.display ===
+        "none"
+      ) {
+
+
+        paparGeneratorStatus(
+
+          "❌ Jana QR terlebih dahulu.",
+
+          "error"
+
+        );
+
+
+        return;
+
+      }
+
+
+      window.print();
+
+    }
+
+
+
+    /* =====================================================
+       7. GENERATOR STATUS
+       ===================================================== */
+
+    function paparGeneratorStatus(
+      mesej,
+      jenis
+    ) {
+
+
+      const element =
+        document.getElementById(
+          "generatorStatus"
+        );
+
+
+      element.textContent =
+        mesej;
+
+
+      element.className =
+        "status";
+
+
+      if (
+        jenis ===
+        "error"
+      ) {
+
+
+        element.classList.add(
+          "status-error"
+        );
+
+      }
+
+
+      else if (
+        jenis ===
+        "success"
+      ) {
+
+
+        element.classList.add(
+          "status-success"
+        );
+
+      }
+
+
+      else {
+
+
+        element.classList.add(
+          "status-info"
+        );
+
+      }
+
+    }
+
+
+
+    /* =====================================================
+       8. PAGE LOAD
+       ===================================================== */
+
+    window.addEventListener(
+      "load",
+      function() {
+
+
+        paparScannerStatus(
+
+          "Tekan 'Buka Kamera' untuk memulakan scanner QR.",
+
+          "info"
+
+        );
+
+      }
     );
 
 
-  element.textContent =
-    mesej;
-
-
-  element.className =
-    "status";
-
-
-  if (jenis === "error") {
-
-    element.classList.add(
-      "status-error"
-    );
-
-  }
-
-  else {
-
-    element.classList.add(
-      "status-info"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   PAGE LOAD
-   ========================================================= */
-
-window.addEventListener(
-  "load",
-  function() {
-
-    paparStatus(
-
-      "Tekan 'Buka Kamera' untuk memulakan scanner QR.",
-
-      "info"
-
-    );
-
-  }
-);
-
-</script>
+  </script>
 
 
 </body>
