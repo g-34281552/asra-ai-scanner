@@ -1233,16 +1233,16 @@
 
 
         const response =
-          await fetch(
-            url,
-            {
-              method:
-                "GET",
-
-              cache:
-                "no-store"
-            }
-          );
+    await fetch(
+        url +
+        "&_=" +
+        Date.now(),
+        {
+            method: "GET",
+            redirect: "follow",
+            cache: "no-store"
+        }
+    );
 
 
         if (!response.ok) {
