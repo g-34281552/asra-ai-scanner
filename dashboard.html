@@ -941,7 +941,7 @@
 
       <button
         class="btn-refresh"
-        onclick="muatDashboard()">
+        onclick="paparDashboard()">
 
         🔄 Muat Semula
 
@@ -1357,6 +1357,18 @@
 
       }
 
+    }
+
+
+    /* =====================================================
+       PAPAR DASHBOARD
+       =====================================================
+       Fungsi utama untuk memuatkan semula keseluruhan dashboard.
+       muatDashboard() dikekalkan sebagai fungsi asal.
+       ===================================================== */
+
+    async function paparDashboard() {
+      await muatDashboard();
     }
 
 
@@ -2001,7 +2013,8 @@
     setInterval(
       function() {
 
-        muatDashboard();
+        console.log("🔄 Auto-refresh Dashboard...");
+        paparDashboard();
 
       },
       30000
