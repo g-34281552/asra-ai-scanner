@@ -1763,9 +1763,47 @@ async function hantarTransaksi(
 
     if (!data.berjaya) {
 
-      throw new Error(
+      const mesejGagal =
         data.mesej ||
-        "Transaksi gagal."
+        "Transaksi gagal.";
+
+      /*
+       * Jika backend menolak transaksi kerana status murid
+       * sudah berubah, segarkan semula maklumat murid.
+       * Ini mengelakkan paparan telefon menjadi tidak selari
+       * dengan status sebenar dalam Google Sheets.
+       */
+
+      if (
+        mesejGagal.toLowerCase().includes("sudah berada") ||
+        mesejGagal.toLowerCase().includes("masih berada")
+      ) {
+
+        paparStatus(
+          "🔄 Status murid berubah. Menyegerakkan semula...",
+          "info"
+        );
+
+        try {
+
+          await cariMurid(
+            muridSemasa.id
+          );
+
+        } catch (syncError) {
+
+          console.error(
+            "Gagal menyegerakkan status:",
+            syncError
+          );
+
+        }
+
+      }
+
+      throw new Error(
+        "Transaksi ditolak: " +
+        mesejGagal
       );
 
     }
@@ -1838,6 +1876,22 @@ async function hantarTransaksi(
 
 
     kemasKiniButangTransaksi(muridSemasa.status);
+
+
+    /*
+     * Paparan kejayaan yang jelas pada skrin.
+     */
+
+    paparStatus(
+
+      "✅ TRANSAKSI BERJAYA\n\n" +
+      "Murid: " + muridSemasa.nama +
+      "\nID: " + muridSemasa.id +
+      "\nStatus: " + statusBaru,
+
+      "success"
+
+    );
 
 
     alert(
