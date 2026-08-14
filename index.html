@@ -1,1652 +1,680 @@
 <!DOCTYPE html>
 <html lang="ms">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ASRA AI – Smart Boarding Attendance</title>
 
-
-<!-- =====================================================
-     QR SCANNER
-     ===================================================== -->
-
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js">
-</script>
-
-
-<!-- =====================================================
-     QR GENERATOR
-     ===================================================== -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
-</script>
-
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-
-/* =====================================================
-   ASAS
-   ===================================================== */
-
-* {
-  box-sizing: border-box;
-}
-
-
-body {
-
-  margin: 0;
-
-  padding: 0;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  background: #f1f5f9;
-
-  color: #1e293b;
-
-}
-
-
-/* =====================================================
-   HEADER
-   ===================================================== */
-
-.header {
-
-  background:
-    linear-gradient(
-      135deg,
-      #0b3d91,
-      #1565c0
-    );
-
-  color: white;
-
-  text-align: center;
-
-  padding: 28px 15px;
-
-  box-shadow:
-    0 3px 15px
-    rgba(0,0,0,0.15);
-
-}
-
-
-.logo {
-
-  font-size: 55px;
-
-}
-
-
-.header h1 {
-
-  margin:
-    5px 0;
-
-  font-size: 34px;
-
-}
-
-
-.header p {
-
-  margin: 8px 0 0;
-
-  font-size: 17px;
-
-}
-
-
-/* =====================================================
-   CONTAINER
-   ===================================================== */
-
-.container {
-
-  width: 100%;
-
-  max-width: 650px;
-
-  margin: auto;
-
-  padding: 15px;
-
-}
-
-
-/* =====================================================
-   CARD
-   ===================================================== */
-
-.card {
-
-  background: white;
-
-  border-radius: 22px;
-
-  padding: 25px;
-
-  margin-bottom: 18px;
-
-  box-shadow:
-    0 5px 20px
-    rgba(15,23,42,0.08);
-
-}
-
-
-/* =====================================================
-   TAJUK
-   ===================================================== */
-
-.section-title {
-
-  text-align: center;
-
-  color: #0b3d91;
-
-  font-size: 28px;
-
-  margin-top: 0;
-
-}
-
-
-.instruction {
-
-  text-align: center;
-
-  color: #64748b;
-
-  line-height: 1.7;
-
-  font-size: 17px;
-
-}
-
-
-/* =====================================================
-   SCANNER
-   ===================================================== */
-
-#reader {
-
-  width: 100%;
-
-  max-width: 500px;
-
-  margin:
-    20px auto;
-
-}
-
-
-#reader video {
-
-  width: 100% !important;
-
-  border-radius: 18px;
-
-}
-
-
-/* =====================================================
-   BUTTON
-   ===================================================== */
-
-button {
-
-  width: 100%;
-
-  border: none;
-
-  border-radius: 15px;
-
-  padding: 17px;
-
-  margin-top: 12px;
-
-  font-size: 18px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-}
-
-button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-  filter: grayscale(0.6);
-}
-
-
-.btn-start {
-
-  background: #0b3d91;
-
-  color: white;
-
-}
-
-
-.btn-stop {
-
-  background: #dc2626;
-
-  color: white;
-
-}
-
-
-.btn-reset {
-
-  background: #475569;
-
-  color: white;
-
-}
-
-
-.btn-masuk {
-
-  background: #16a34a;
-
-  color: white;
-
-  font-size: 21px;
-
-}
-
-
-.btn-keluar {
-
-  background: #ef4444;
-
-  color: white;
-
-  font-size: 21px;
-
-}
-
-
-.btn-download {
-
-  background: #2563eb;
-
-  color: white;
-
-}
-
-
-.btn-print {
-
-  background: #475569;
-
-  color: white;
-
-}
-
-
-/* =====================================================
-   STATUS
-   ===================================================== */
-
-.status {
-
-  text-align: center;
-
-  padding: 14px;
-
-  border-radius: 12px;
-
-  margin-top: 15px;
-
-  display: none;
-
-  white-space: pre-line;
-
-}
-
-
-.status-info {
-
-  display: block;
-
-  background: #dbeafe;
-
-  color: #1e40af;
-
-}
-
-
-.status-success {
-
-  display: block;
-
-  background: #dcfce7;
-
-  color: #166534;
-
-}
-
-
-.status-error {
-
-  display: block;
-
-  background: #fee2e2;
-
-  color: #991b1b;
-
-}
-
-
-/* =====================================================
-   RESULT
-   ===================================================== */
-
-#resultCard {
-
-  display: none;
-
-}
-
-
-.success {
-
-  background: #dcfce7;
-
-  color: #166534;
-
-  border:
-    1px solid #86efac;
-
-  padding: 18px;
-
-  border-radius: 15px;
-
-  text-align: center;
-
-  font-size: 19px;
-
-  font-weight: bold;
-
-}
-
-
-.murid-header {
-
-  text-align: center;
-
-  margin-top: 20px;
-
-}
-
-
-.murid-icon {
-
-  font-size: 55px;
-
-}
-
-
-.murid-name {
-
-  font-size: 29px;
-
-  font-weight: bold;
-
-  color: #0b3d91;
-
-}
-
-
-.murid-id {
-
-  font-size: 20px;
-
-  color: #64748b;
-
-  margin-top: 5px;
-
-}
-
-
-/* =====================================================
-   MAKLUMAT MURID
-   ===================================================== */
-
-.info-box {
-
-  background: #f8fafc;
-
-  border-radius: 18px;
-
-  padding: 20px;
-
-  margin-top: 12px;
-
-}
-
-
-.info-label {
-
-  color: #64748b;
-
-  font-size: 17px;
-
-}
-
-
-.info-value {
-
-  font-size: 25px;
-
-  font-weight: bold;
-
-  margin-top: 5px;
-
-}
-
-
-/* =====================================================
-   STATUS MURID
-   ===================================================== */
-
-.status-murid {
-
-  text-align: center;
-
-  padding: 22px;
-
-  border-radius: 18px;
-
-  margin-top: 18px;
-
-  font-size: 25px;
-
-  font-weight: bold;
-
-}
-
-
-.status-dalam {
-
-  background: #dcfce7;
-
-  color: #166534;
-
-}
-
-
-.status-luar {
-
-  background: #fee2e2;
-
-  color: #991b1b;
-
-}
-
-
-/* =====================================================
-   TRANSAKSI
-   ===================================================== */
-
-.transaksi-title {
-
-  text-align: center;
-
-  font-size: 18px;
-
-  color: #64748b;
-
-  margin-top: 20px;
-
-}
-
-
-/* =====================================================
-   QR GENERATOR
-   ===================================================== */
-
-.generator-title {
-
-  text-align: center;
-
-  color: #0b3d91;
-
-  font-size: 28px;
-
-}
-
-
-input {
-
-  width: 100%;
-
-  padding: 17px;
-
-  border:
-    2px solid #cbd5e1;
-
-  border-radius: 14px;
-
-  font-size: 19px;
-
-  margin-top: 10px;
-
-  outline: none;
-
-}
-
-
-input:focus {
-
-  border-color: #0b3d91;
-
-}
-
-
-.qr-generator-area {
-
-  text-align: center;
-
-  margin-top: 20px;
-
-}
-
-
-#qrcode {
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  margin: 20px auto;
-
-}
-
-
-.qr-label {
-
-  text-align: center;
-
-  font-size: 24px;
-
-  font-weight: bold;
-
-  color: #0b3d91;
-
-}
-
-
-/* =====================================================
-   LOADING
-   ===================================================== */
-
-#loading {
-
-  display: none;
-
-  text-align: center;
-
-  padding: 15px;
-
-  color: #0b3d91;
-
-  font-weight: bold;
-
-}
-
-
-/* =====================================================
-   FOOTER
-   ===================================================== */
-
-.footer {
-
-  text-align: center;
-
-  color: #64748b;
-
-  font-size: 13px;
-
-  padding: 25px;
-
-}
-
-
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
-@media (max-width: 450px) {
-
-  .header {
-
-    padding: 22px 12px;
-
-  }
-
-
-  .logo {
-
-    font-size: 45px;
-
-  }
-
-
-  .header h1 {
-
-    font-size: 28px;
-
-  }
-
-
-  .header p {
-
-    font-size: 15px;
-
-  }
-
-
-  .card {
-
-    padding: 18px;
-
-  }
-
-
-  .section-title {
-
-    font-size: 25px;
-
-  }
-
-
-  .murid-name {
-
-    font-size: 27px;
-
-  }
-
-
-  .info-value {
-
-    font-size: 24px;
-
-  }
-
-
-  .status-murid {
-
-    font-size: 23px;
-
-  }
-
-}
-
+*{box-sizing:border-box}
+body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;background:#f1f5f9;color:#1e293b}
+.header{background:linear-gradient(135deg,#0b3d91,#1565c0);color:#fff;text-align:center;padding:28px 15px;box-shadow:0 3px 15px rgba(0,0,0,.15)}
+.logo{font-size:55px}.header h1{margin:5px 0;font-size:34px}.header p{margin:8px 0 0;font-size:17px}
+.container{width:100%;max-width:650px;margin:auto;padding:15px}
+.card{background:#fff;border-radius:22px;padding:25px;margin-bottom:18px;box-shadow:0 5px 20px rgba(15,23,42,.08)}
+.section-title,.generator-title{text-align:center;color:#0b3d91;font-size:28px;margin-top:0}
+.instruction{text-align:center;color:#64748b;line-height:1.7;font-size:17px}
+#reader{width:100%;max-width:500px;margin:20px auto}
+#reader video{width:100%!important;border-radius:18px}
+button{width:100%;border:none;border-radius:15px;padding:17px;margin-top:12px;font-size:18px;font-weight:bold;cursor:pointer;transition:.15s}
+button:active{transform:scale(.99)}
+button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.6)}
+.btn-start{background:#0b3d91;color:#fff}.btn-stop{background:#dc2626;color:#fff}.btn-reset{background:#475569;color:#fff}
+.btn-masuk{background:#16a34a;color:#fff;font-size:21px}.btn-keluar{background:#ef4444;color:#fff;font-size:21px}
+.btn-download{background:#2563eb;color:#fff}.btn-print{background:#475569;color:#fff}
+.status{display:none;text-align:center;padding:14px;border-radius:12px;margin-top:15px;white-space:pre-line}
+.status-info{display:block;background:#dbeafe;color:#1e40af}
+.status-success{display:block;background:#dcfce7;color:#166534}
+.status-error{display:block;background:#fee2e2;color:#991b1b}
+#resultCard{display:none}
+.success{background:#dcfce7;color:#166534;border:1px solid #86efac;padding:18px;border-radius:15px;text-align:center;font-size:19px;font-weight:bold}
+.murid-header{text-align:center;margin-top:20px}.murid-icon{font-size:55px}
+.murid-name{font-size:29px;font-weight:bold;color:#0b3d91}.murid-id{font-size:20px;color:#64748b;margin-top:5px}
+.info-box{background:#f8fafc;border-radius:18px;padding:20px;margin-top:12px}
+.info-label{color:#64748b;font-size:17px}.info-value{font-size:25px;font-weight:bold;margin-top:5px}
+.status-murid{text-align:center;padding:22px;border-radius:18px;margin-top:18px;font-size:25px;font-weight:bold}
+.status-dalam{background:#dcfce7;color:#166534}.status-luar{background:#fee2e2;color:#991b1b}
+.status-tiada{background:#fef3c7;color:#92400e}.status-unknown{background:#e0e7ff;color:#3730a3}
+.transaksi-title{text-align:center;font-size:18px;color:#64748b;margin-top:20px}
+.generator-title{margin-bottom:5px}
+input{width:100%;padding:17px;border:2px solid #cbd5e1;border-radius:14px;font-size:19px;margin-top:10px;outline:none}
+input:focus{border-color:#0b3d91}
+.qr-generator-area{text-align:center;margin-top:20px}#qrcode{display:flex;justify-content:center;align-items:center;margin:20px auto}
+.qr-label{text-align:center;font-size:24px;font-weight:bold;color:#0b3d91}
+#loading{display:none;text-align:center;padding:15px;color:#0b3d91;font-weight:bold}
+.footer{text-align:center;color:#64748b;font-size:13px;padding:25px}
+.search-row{display:flex;gap:8px}.search-row input{flex:1;margin-top:0}.search-row button{width:auto;margin-top:0;padding:14px 18px}
+@media(max-width:450px){.header{padding:22px 12px}.logo{font-size:45px}.header h1{font-size:28px}.header p{font-size:15px}.card{padding:18px}.section-title,.generator-title{font-size:25px}.murid-name{font-size:27px}.info-value{font-size:24px}.status-murid{font-size:23px}.search-row{display:block}.search-row button{width:100%;margin-top:8px}}
 </style>
-
 </head>
 
-
 <body>
-
-
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
-
 <div class="header">
-
-  <div class="logo">
-    🏫
-  </div>
-
-  <h1>
-    ASRA AI
-  </h1>
-
-  <p>
-    Smart Boarding Attendance System
-  </p>
-
+  <div class="logo">🏫</div>
+  <h1>ASRA AI</h1>
+  <p>Smart Boarding Attendance System</p>
 </div>
-
 
 <div class="container">
 
+<div id="systemMessage" class="status"></div>
 
-<!-- =====================================================
-     MESEJ SISTEM
-     ===================================================== -->
-
-<div id="systemMessage"
-     class="status">
-</div>
-
-
-<!-- =====================================================
-     SCANNER QR
-     ===================================================== -->
-
+<!-- SCANNER -->
 <div class="card">
-
-  <h2 class="section-title">
-    📷 Imbas QR Murid
-  </h2>
-
-
+  <h2 class="section-title">📷 Imbas QR Murid</h2>
   <p class="instruction">
-
-    Tekan <b>"Buka Kamera"</b> kemudian
-    halakan kamera belakang telefon
-    kepada QR Code murid.
-
+    Tekan <b>"Buka Kamera"</b> kemudian halakan kamera belakang telefon kepada QR Code murid.
   </p>
-
-
   <div id="reader"></div>
+  <div id="status" class="status"></div>
 
-
-  <div id="status"
-       class="status">
-  </div>
-
-
-  <button
-    id="startButton"
-    class="btn-start"
-    onclick="mulaScanner()">
-
-    📷 Buka Kamera
-
-  </button>
-
-
-  <button
-    id="stopButton"
-    class="btn-stop"
-    onclick="hentikanScanner()"
-    style="display:none;">
-
-    ⛔ Tutup Kamera
-
-  </button>
-
+  <button id="startButton" class="btn-start" type="button" onclick="mulaScanner()">📷 Buka Kamera</button>
+  <button id="stopButton" class="btn-stop" type="button" onclick="hentikanScanner()" style="display:none;">⛔ Tutup Kamera</button>
 </div>
 
-
-<!-- =====================================================
-     RESULT MURID
-     ===================================================== -->
-
-<div
-  id="resultCard"
-  class="card">
-
-
-  <div class="success">
-
-    ✅ QR BERJAYA DIBACA
-
+<!-- CARIAN MANUAL / QR -->
+<div class="card">
+  <h2 class="section-title">🔎 Carian Murid</h2>
+  <p class="instruction">Masukkan ID murid jika QR tidak dapat diimbas.</p>
+  <div class="search-row">
+    <input type="text" id="carianID" placeholder="Contoh: ASR001" autocomplete="off">
+    <button class="btn-start" type="button" onclick="cariMuridManual()">Cari</button>
   </div>
+</div>
 
+<!-- RESULT -->
+<div id="resultCard" class="card">
+  <div class="success">✅ MAKLUMAT MURID</div>
 
   <div class="murid-header">
-
-    <div class="murid-icon">
-      👨‍🎓
-    </div>
-
-
-    <div
-      id="muridNama"
-      class="murid-name">
-
-      -
-
-    </div>
-
-
-    <div
-      id="muridID"
-      class="murid-id">
-
-      ID: -
-
-    </div>
-
+    <div class="murid-icon">👨‍🎓</div>
+    <div id="muridNama" class="murid-name">-</div>
+    <div id="muridID" class="murid-id">ID: -</div>
   </div>
 
+  <div class="info-box"><div class="info-label">📚 Tahun</div><div id="muridTahun" class="info-value">-</div></div>
+  <div class="info-box"><div class="info-label">🏫 Kelas</div><div id="muridKelas" class="info-value">-</div></div>
+  <div class="info-box"><div class="info-label">🛏️ Dorm</div><div id="muridDorm" class="info-value">-</div></div>
+  <div class="info-box"><div class="info-label">👤 Jantina</div><div id="muridJantina" class="info-value">-</div></div>
 
-  <!-- TAHUN -->
+  <div id="statusMurid" class="status-murid status-tiada">Status: Tiada Rekod</div>
 
-  <div class="info-box">
+  <div class="transaksi-title">Pilih tindakan:</div>
 
-    <div class="info-label">
-      📚 Tahun
-    </div>
+  <button id="btnMasuk" class="btn-masuk" type="button" onclick="sahkanTransaksi('MASUK')">🟢 MASUK</button>
+  <button id="btnKeluar" class="btn-keluar" type="button" onclick="sahkanTransaksi('KELUAR')">🔴 KELUAR</button>
 
-    <div
-      id="muridTahun"
-      class="info-value">
-
-      -
-
-    </div>
-
-  </div>
-
-
-  <!-- KELAS -->
-
-  <div class="info-box">
-
-    <div class="info-label">
-      🏫 Kelas
-    </div>
-
-    <div
-      id="muridKelas"
-      class="info-value">
-
-      -
-
-    </div>
-
-  </div>
-
-
-  <!-- DORM -->
-
-  <div class="info-box">
-
-    <div class="info-label">
-      🛏️ Dorm
-    </div>
-
-    <div
-      id="muridDorm"
-      class="info-value">
-
-      -
-
-    </div>
-
-  </div>
-
-
-  <!-- JANTINA -->
-
-  <div class="info-box">
-
-    <div class="info-label">
-      👤 Jantina
-    </div>
-
-    <div
-      id="muridJantina"
-      class="info-value">
-
-      -
-
-    </div>
-
-  </div>
-
-
-  <!-- STATUS -->
-
-  <div
-    id="statusMurid"
-    class="status-murid">
-
-    Status: -
-
-  </div>
-
-
-  <div class="transaksi-title">
-
-    Pilih tindakan:
-
-  </div>
-
-
-  <!-- MASUK -->
-
-  <button
-    id="btnMasuk"
-    class="btn-masuk"
-    onclick="sahkanTransaksi('MASUK')">
-
-    🟢 MASUK
-
-  </button>
-
-
-  <!-- KELUAR -->
-
-  <button
-    id="btnKeluar"
-    class="btn-keluar"
-    onclick="sahkanTransaksi('KELUAR')">
-
-    🔴 KELUAR
-
-  </button>
-
-
-  <!-- IMBAS SEMULA -->
-
-  <button
-    class="btn-reset"
-    onclick="imbasSemula()">
-
-    📷 Imbas Murid Seterusnya
-
-  </button>
-
+  <button class="btn-reset" type="button" onclick="imbasSemula()">📷 Imbas Murid Seterusnya</button>
 </div>
 
+<div id="loading">⏳ Sedang memproses...</div>
 
-<!-- =====================================================
-     LOADING
-     ===================================================== -->
-
-<div id="loading">
-
-  ⏳ Sedang memproses...
-
-</div>
-
-
-<!-- =====================================================
-     QR GENERATOR
-     ===================================================== -->
-
+<!-- QR GENERATOR -->
 <div class="card">
+  <h2 class="generator-title">🔑 QR Generator Murid</h2>
+  <p class="instruction">Masukkan ID Murid untuk menghasilkan QR Code.<br>Contoh: <b>ASR001</b></p>
 
-  <h2 class="generator-title">
+  <input type="text" id="qrInput" placeholder="Masukkan ID Murid" autocomplete="off">
 
-    🔑 QR Generator Murid
+  <button class="btn-start" type="button" onclick="janaQR()">🔑 Jana QR</button>
 
-  </h2>
-
-
-  <p class="instruction">
-
-    Masukkan ID Murid untuk menghasilkan
-    QR Code.
-
-    <br>
-
-    Contoh:
-
-    <b>TEST001</b>
-
-  </p>
-
-
-  <input
-    type="text"
-    id="qrInput"
-    placeholder="Masukkan ID Murid"
-    autocomplete="off">
-
-
-  <button
-    class="btn-start"
-    onclick="janaQR()">
-
-    🔑 Jana QR
-
-  </button>
-
-
-  <div
-    id="qrGeneratorArea"
-    class="qr-generator-area"
-    style="display:none;">
-
-
-    <div
-      id="qrcode">
-    </div>
-
-
-    <div
-      id="qrLabel"
-      class="qr-label">
-
-      TEST001
-
-    </div>
-
-
-    <button
-      class="btn-download"
-      onclick="muatTurunQR()">
-
-      ⬇️ Muat Turun QR
-
-    </button>
-
-
-    <button
-      class="btn-print"
-      onclick="cetakQR()">
-
-      🖨️ Cetak QR
-
-    </button>
-
-
+  <div id="qrGeneratorArea" class="qr-generator-area" style="display:none;">
+    <div id="qrcode"></div>
+    <div id="qrLabel" class="qr-label">-</div>
+    <button class="btn-download" type="button" onclick="muatTurunQR()">⬇️ Muat Turun QR</button>
+    <button class="btn-print" type="button" onclick="cetakQR()">🖨️ Cetak QR</button>
   </div>
-
 </div>
 
-
 </div>
-
-
-<!-- =====================================================
-     FOOTER
-     ===================================================== -->
 
 <div class="footer">
-
-  ASRA AI © 2026
-
-  <br>
-
+  ASRA AI © 2026<br>
   Smart Boarding Attendance System
-
 </div>
 
-
 <script>
-
-
-/* =====================================================
-   KONFIGURASI API
-   ===================================================== */
-
+/* ==========================================================
+   KONFIGURASI
+   ========================================================== */
 const API_URL =
   "https://script.google.com/macros/s/AKfycbyDfyEbn-9eW5pg8QKQfGBlgqUYcy152Va_yc8P9bsmKeKCwBM8fRSphFKwjMagl8zp/exec";
 
-
-/* =====================================================
-   PEMBOLEH UBAH
-   ===================================================== */
+/*
+ * Telegram TIDAK dipanggil terus dari index.html.
+ * index.html hanya menghantar transaksi ke API_URL.
+ * Jika Apps Script backend mempunyai fungsi Telegram,
+ * ia kekal digunakan melalui endpoint transaksi yang sama.
+ */
 
 let qrScanner = null;
-
 let scannerAktif = false;
-
 let sedangProses = false;
-
 let muridSemasa = null;
-
 let qrGeneratedValue = "";
-
-
-/* =====================================================
-   MULAKAN SCANNER
-   ===================================================== */
-
-function mulaScanner() {
-
-
-  if (scannerAktif) {
-
-    return;
-
-  }
-
-
-  paparStatus(
-    "📷 Memulakan kamera...",
-    "info"
-  );
-
-
-  qrScanner =
-    new Html5Qrcode(
-      "reader"
-    );
-
-
-  const config = {
-
-    fps: 10,
-
-    qrbox:
-      function(
-        viewfinderWidth,
-        viewfinderHeight
-      ) {
-
-        const size =
-          Math.min(
-            viewfinderWidth,
-            viewfinderHeight
-          ) * 0.70;
-
-
-        return {
-
-          width: size,
-
-          height: size
-
-        };
-
-      },
-
-    aspectRatio: 1.0
-
-  };
-
-
-  qrScanner
-    .start(
-
-      {
-        facingMode: {
-          exact: "environment"
-        }
-      },
-
-      config,
-
-      qrBerjaya,
-
-      function() {
-
-        // Jangan papar ralat
-        // setiap frame.
-
-      }
-
-    )
-
-    .then(
-      function() {
-
-
-        scannerAktif = true;
-
-
-        document
-          .getElementById(
-            "startButton"
-          )
-          .style.display =
-            "none";
-
-
-        document
-          .getElementById(
-            "stopButton"
-          )
-          .style.display =
-            "block";
-
-
-        paparStatus(
-
-          "📷 Kamera aktif.\n" +
-          "Halakan kepada QR murid.",
-
-          "info"
-
-        );
-
-      }
-
-    )
-
-    .catch(
-      function(error) {
-
-
-        console.error(
-          error
-        );
-
-
-        scannerAktif = false;
-
-
-        paparStatus(
-
-          "❌ Kamera tidak dapat dibuka.\n\n" +
-
-          "Pastikan:\n" +
-
-          "1. Kebenaran kamera dibenarkan.\n" +
-
-          "2. Gunakan Chrome.\n" +
-
-          "3. Gunakan HTTPS.\n" +
-
-          "4. Kamera tidak digunakan aplikasi lain.",
-
-          "error"
-
-        );
-
-      }
-
-    );
-
+let transaksiSedangDihantar = false;
+
+/* ==========================================================
+   UTILITI
+   ========================================================== */
+function normalisasiStatus(status) {
+  const s = String(status ?? "").trim().toUpperCase();
+
+  if ([
+    "DALAM ASRAMA","DALAM","MASUK","IN","DALAM_ASRAMA"
+  ].includes(s)) return "DALAM ASRAMA";
+
+  if ([
+    "DI LUAR","LUAR","KELUAR","OUT","DI_LUAR"
+  ].includes(s)) return "DI LUAR";
+
+  if ([
+    "TIADA REKOD","TIADA DATA","TIADA","BELUM ADA REKOD",
+    "NO RECORD","NO DATA",""
+  ].includes(s)) return "TIADA REKOD";
+
+  return s;
 }
 
+function paparStatus(mesej, jenis) {
+  const el = document.getElementById("status");
+  if (!el) return;
 
-/* =====================================================
-   QR BERJAYA DIBACA
-   ===================================================== */
+  el.textContent = mesej || "";
+  el.className = "status";
 
-function qrBerjaya(
-  decodedText,
-  decodedResult
-) {
+  if (jenis === "error") el.classList.add("status-error");
+  else if (jenis === "success") el.classList.add("status-success");
+  else el.classList.add("status-info");
+}
 
+function setLoading(aktif) {
+  const el = document.getElementById("loading");
+  if (el) el.style.display = aktif ? "block" : "none";
+}
 
-  if (sedangProses) {
+function setButtonBusy(aktif) {
+  const masuk = document.getElementById("btnMasuk");
+  const keluar = document.getElementById("btnKeluar");
 
+  if (masuk) masuk.disabled = aktif;
+  if (keluar) keluar.disabled = aktif;
+}
+
+/* ==========================================================
+   BUTANG TRANSAKSI
+   PEMBAIKAN UTAMA:
+   "TIADA REKOD" = BENARKAN MASUK.
+   KELUAR masih disabled kerana murid belum pernah masuk.
+   ========================================================== */
+function kemasKiniButangTransaksi(status) {
+  const btnMasuk = document.getElementById("btnMasuk");
+  const btnKeluar = document.getElementById("btnKeluar");
+  if (!btnMasuk || !btnKeluar) return;
+
+  if (transaksiSedangDihantar) {
+    btnMasuk.disabled = true;
+    btnKeluar.disabled = true;
     return;
-
   }
 
+  const s = normalisasiStatus(status);
+
+  if (s === "DALAM ASRAMA") {
+    btnMasuk.disabled = true;
+    btnKeluar.disabled = false;
+    btnMasuk.title = "Murid sudah berada dalam asrama.";
+    btnKeluar.title = "Rekod murid keluar dari asrama.";
+    return;
+  }
+
+  if (s === "DI LUAR") {
+    btnMasuk.disabled = false;
+    btnKeluar.disabled = true;
+    btnMasuk.title = "Rekod murid masuk ke asrama.";
+    btnKeluar.title = "Murid masih berada di luar.";
+    return;
+  }
+
+  if (s === "TIADA REKOD") {
+    /*
+     * INI PEMBETULAN PENTING.
+     * Tiada rekod bukan bermaksud kedua-dua butang disabled.
+     * Transaksi pertama mestilah MASUK.
+     */
+    btnMasuk.disabled = false;
+    btnKeluar.disabled = true;
+    btnMasuk.title = "Rekod pertama murid: MASUK.";
+    btnKeluar.title = "Tiada rekod MASUK sebelumnya.";
+    return;
+  }
+
+  /*
+   * Status tidak dikenali:
+   * benarkan kedua-duanya supaya UI tidak terkunci.
+   * Backend masih menjadi pengesah terakhir.
+   */
+  btnMasuk.disabled = false;
+  btnKeluar.disabled = false;
+  btnMasuk.title = "Rekod MASUK.";
+  btnKeluar.title = "Rekod KELUAR.";
+}
+
+/* ==========================================================
+   SCANNER
+   ========================================================== */
+function mulaScanner() {
+  if (scannerAktif) return;
+
+  if (typeof Html5Qrcode === "undefined") {
+    paparStatus("❌ Library QR Scanner gagal dimuatkan.", "error");
+    return;
+  }
+
+  paparStatus("📷 Memulakan kamera...", "info");
+
+  try {
+    qrScanner = new Html5Qrcode("reader");
+
+    const config = {
+      fps: 10,
+      qrbox: function(viewfinderWidth, viewfinderHeight) {
+        const size =
+          Math.min(viewfinderWidth, viewfinderHeight) * 0.70;
+        return { width: size, height: size };
+      },
+      aspectRatio: 1.0
+    };
+
+    qrScanner.start(
+      { facingMode: { exact: "environment" } },
+      config,
+      qrBerjaya,
+      function() {}
+    ).then(function() {
+      scannerAktif = true;
+
+      document.getElementById("startButton").style.display = "none";
+      document.getElementById("stopButton").style.display = "block";
+
+      paparStatus(
+        "📷 Kamera aktif.\nHalakan kepada QR murid.",
+        "info"
+      );
+    }).catch(function(error) {
+      console.error("Kamera error:", error);
+
+      /*
+       * Sesetengah telefon tidak menerima facingMode exact.
+       * Cuba kamera environment biasa sebagai fallback.
+       */
+      cubaScannerFallback();
+    });
+
+  } catch (error) {
+    console.error(error);
+    paparStatus(
+      "❌ Scanner tidak dapat dimulakan.\n" + error.message,
+      "error"
+    );
+  }
+}
+
+function cubaScannerFallback() {
+  try {
+    if (qrScanner) {
+      qrScanner.clear().catch(function(){});
+    }
+
+    qrScanner = new Html5Qrcode("reader");
+
+    const config = {
+      fps: 10,
+      qrbox: { width: 250, height: 250 },
+      aspectRatio: 1.0
+    };
+
+    qrScanner.start(
+      { facingMode: "environment" },
+      config,
+      qrBerjaya,
+      function(){}
+    ).then(function() {
+      scannerAktif = true;
+      document.getElementById("startButton").style.display = "none";
+      document.getElementById("stopButton").style.display = "block";
+      paparStatus(
+        "📷 Kamera aktif.\nHalakan kepada QR murid.",
+        "info"
+      );
+    }).catch(function(error) {
+      console.error(error);
+      scannerAktif = false;
+
+      paparStatus(
+        "❌ Kamera tidak dapat dibuka.\n\n" +
+        "Pastikan:\n" +
+        "1. Kebenaran kamera dibenarkan.\n" +
+        "2. Gunakan Chrome.\n" +
+        "3. Gunakan HTTPS.\n" +
+        "4. Kamera tidak digunakan aplikasi lain.",
+        "error"
+      );
+    });
+  } catch (error) {
+    console.error(error);
+    paparStatus(
+      "❌ Kamera tidak dapat dibuka.\n" + error.message,
+      "error"
+    );
+  }
+}
+
+function qrBerjaya(decodedText, decodedResult) {
+  if (sedangProses) return;
 
   sedangProses = true;
 
-
-  const idMurid =
-    String(
-      decodedText || ""
-    ).trim();
-
+  const idMurid = String(decodedText || "").trim();
 
   if (!idMurid) {
-
     sedangProses = false;
-
     return;
-
   }
 
-
-  console.log(
-    "QR DIBACA:",
-    idMurid
-  );
-
+  console.log("QR DIBACA:", idMurid);
 
   hentikanScanner();
 
-
   paparStatus(
-
-    "✅ QR berjaya dibaca.\n" +
-    "Mendapatkan maklumat murid...",
-
+    "✅ QR berjaya dibaca.\nMendapatkan maklumat murid...",
     "info"
-
   );
 
-
   cariMurid(idMurid);
-
 }
 
+/* ==========================================================
+   CARI MURID
+   ========================================================== */
+async function cariMurid(idMurid) {
+  const id = String(idMurid || "").trim();
 
-/* =====================================================
-   CARI MURID MELALUI API
-   ===================================================== */
-
-async function cariMurid(
-  idMurid
-) {
-
+  if (!id) {
+    sedangProses = false;
+    paparStatus("❌ ID Murid kosong.", "error");
+    return;
+  }
 
   try {
-
+    setLoading(true);
 
     const url =
       API_URL +
       "?api=murid&id=" +
-      encodeURIComponent(
-        idMurid
-      );
+      encodeURIComponent(id) +
+      "&_t=" +
+      Date.now();
 
+    console.log("API MURID:", url);
 
-    console.log(
-      "API MURID:",
-      url
-    );
-
-
-    const response =
-      await fetch(
-        url
-      );
-
+    const response = await fetch(url, {
+      method: "GET",
+      cache: "no-store"
+    });
 
     if (!response.ok) {
-
-      throw new Error(
-        "HTTP " +
-        response.status
-      );
-
+      throw new Error("HTTP " + response.status);
     }
 
+    const text = await response.text();
+    console.log("RAW RESPONSE MURID:", text);
 
-    const data =
-      await response.json();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      throw new Error(
+        "Respons API murid bukan JSON yang sah."
+      );
+    }
 
-
-    console.log(
-      "RESPONSE MURID:",
-      data
-    );
-
+    console.log("RESPONSE MURID:", data);
 
     if (!data.berjaya) {
-
       throw new Error(
-        data.mesej ||
-        "Murid tidak dijumpai."
+        data.mesej || "Murid tidak dijumpai."
       );
-
     }
 
+    /*
+     * Sokong beberapa bentuk response Apps Script.
+     */
+    const murid =
+      data.murid ||
+      data.data?.murid ||
+      data.data;
 
-    muridSemasa =
-      data.murid;
+    if (!murid || typeof murid !== "object") {
+      throw new Error("Maklumat murid tidak terdapat dalam response API.");
+    }
 
+    muridSemasa = {
+      ...murid,
+      id: String(
+        murid.id ??
+        murid.ID ??
+        murid.idMurid ??
+        id
+      ).trim(),
 
-    paparMurid(
-      muridSemasa
-    );
+      nama:
+        murid.nama ??
+        murid.Nama ??
+        "-",
 
+      tahun:
+        murid.tahun ??
+        murid.Tahun ??
+        "-",
+
+      kelas:
+        murid.kelas ??
+        murid.Kelas ??
+        "-",
+
+      dorm:
+        murid.dorm ??
+        murid.Dorm ??
+        "-",
+
+      jantina:
+        murid.jantina ??
+        murid.Jantina ??
+        "-",
+
+      /*
+       * Backend mungkin memanggilnya statusSemasa.
+       * Ambil yang paling tepat dahulu.
+       */
+      status:
+        murid.statusSemasa ??
+        murid.status ??
+        data.statusSemasa ??
+        data.data?.statusSemasa ??
+        "Tiada Rekod"
+    };
+
+    paparMurid(muridSemasa);
 
     paparStatus(
-
       "✅ Maklumat murid berjaya diperoleh.",
-
       "success"
-
     );
 
+  } catch (error) {
+    console.error("CARI MURID ERROR:", error);
 
-  }
-
-  catch(error) {
-
-
-    console.error(
-      error
-    );
-
+    muridSemasa = null;
 
     paparStatus(
-
       "❌ Gagal mendapatkan maklumat murid.\n\n" +
       error.message,
-
       "error"
-
     );
 
-
     alert(
-
       "❌ Gagal mendapatkan maklumat murid.\n\n" +
       error.message
-
     );
 
-
+  } finally {
+    setLoading(false);
     sedangProses = false;
-
   }
-
 }
 
+function cariMuridManual() {
+  const input = document.getElementById("carianID");
+  const id = String(input?.value || "").trim();
 
-/* =====================================================
-   PAPAR MAKLUMAT MURID
-   ===================================================== */
-
-function paparMurid(
-  murid
-) {
-
-
-  document
-    .getElementById(
-      "muridNama"
-    )
-    .textContent =
-      murid.nama || "-";
-
-
-  document
-    .getElementById(
-      "muridID"
-    )
-    .textContent =
-      "ID: " +
-      (murid.id || "-");
-
-
-  document
-    .getElementById(
-      "muridTahun"
-    )
-    .textContent =
-      murid.tahun || "-";
-
-
-  document
-    .getElementById(
-      "muridKelas"
-    )
-    .textContent =
-      murid.kelas || "-";
-
-
-  document
-    .getElementById(
-      "muridDorm"
-    )
-    .textContent =
-      murid.dorm || "-";
-
-
-  document
-    .getElementById(
-      "muridJantina"
-    )
-    .textContent =
-      murid.jantina || "-";
-
-
-  const status =
-    String(
-      murid.status || ""
-    ).trim();
-
-
-  const statusBox =
-    document
-      .getElementById(
-        "statusMurid"
-      );
-
-
-  if (
-    status.toUpperCase()
-      === "DALAM ASRAMA"
-  ) {
-
-
-    statusBox.textContent =
-      "Status: Dalam Asrama";
-
-
-    statusBox.className =
-      "status-murid status-dalam";
-
-
+  if (!id) {
+    alert("Sila masukkan ID Murid.");
+    input?.focus();
+    return;
   }
 
-  else {
-
-
-    statusBox.textContent =
-      "Status: " +
-      (status || "Di Luar");
-
-
-    statusBox.className =
-      "status-murid status-luar";
-
-  }
-
-
-  kemasKiniButangTransaksi(status);
-
-
-  document
-    .getElementById(
-      "resultCard"
-    )
-    .style.display =
-      "block";
-
-
-  setTimeout(
-    function() {
-
-      document
-        .getElementById(
-          "resultCard"
-        )
-        .scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-
-    },
-    200
+  sedangProses = true;
+  paparStatus(
+    "🔎 Mencari murid " + id + "...",
+    "info"
   );
 
+  cariMurid(id);
 }
 
+/* ==========================================================
+   PAPAR MURID
+   ========================================================== */
+function paparMurid(murid) {
+  document.getElementById("muridNama").textContent =
+    murid.nama || "-";
 
-/* =====================================================
+  document.getElementById("muridID").textContent =
+    "ID: " + (murid.id || "-");
+
+  document.getElementById("muridTahun").textContent =
+    murid.tahun || "-";
+
+  document.getElementById("muridKelas").textContent =
+    murid.kelas || "-";
+
+  document.getElementById("muridDorm").textContent =
+    murid.dorm || "-";
+
+  document.getElementById("muridJantina").textContent =
+    murid.jantina || "-";
+
+  paparStatusMurid(murid.status);
+
+  kemasKiniButangTransaksi(murid.status);
+
+  document.getElementById("resultCard").style.display = "block";
+
+  setTimeout(function() {
+    document.getElementById("resultCard").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 200);
+}
+
+function paparStatusMurid(status) {
+  const box = document.getElementById("statusMurid");
+  const s = normalisasiStatus(status);
+
+  box.className = "status-murid";
+
+  if (s === "DALAM ASRAMA") {
+    box.textContent = "Status: Dalam Asrama";
+    box.classList.add("status-dalam");
+    return;
+  }
+
+  if (s === "DI LUAR") {
+    box.textContent = "Status: Di Luar";
+    box.classList.add("status-luar");
+    return;
+  }
+
+  if (s === "TIADA REKOD") {
+    box.textContent = "Status: Tiada Rekod";
+    box.classList.add("status-tiada");
+    return;
+  }
+
+  box.textContent = "Status: " + (status || "Tidak Diketahui");
+  box.classList.add("status-unknown");
+}
+
+/* ==========================================================
    SAHKAN TRANSAKSI
-   ===================================================== */
-
-function kemasKiniButangTransaksi(status) {
-
-  const btnMasuk = document.getElementById("btnMasuk");
-  const btnKeluar = document.getElementById("btnKeluar");
-
-  if (!btnMasuk || !btnKeluar) return;
-
-  const statusNormal = String(status || "").trim().toUpperCase();
-
-  if (statusNormal === "DALAM ASRAMA" || statusNormal === "DALAM") {
-    btnMasuk.disabled = true;
-    btnKeluar.disabled = false;
-    btnMasuk.title = "Murid sudah berada dalam asrama.";
-    btnKeluar.title = "Keluarkan murid dari asrama.";
-    return;
-  }
-
-  if (statusNormal === "DI LUAR" || statusNormal === "LUAR") {
-    btnMasuk.disabled = false;
-    btnKeluar.disabled = true;
-    btnMasuk.title = "Daftarkan murid masuk ke asrama.";
-    btnKeluar.title = "Murid masih berada di luar asrama.";
-    return;
-  }
-
-  btnMasuk.disabled = true;
-  btnKeluar.disabled = true;
-  btnMasuk.title = "Status murid tidak dikenali.";
-  btnKeluar.title = "Status murid tidak dikenali.";
-}
-
-
-function sahkanTransaksi(
-  status
-) {
-
-
+   ========================================================== */
+function sahkanTransaksi(status) {
   if (!muridSemasa) {
+    alert("Sila imbas QR murid terlebih dahulu.");
+    return;
+  }
 
+  if (transaksiSedangDihantar) return;
 
+  const statusSemasa =
+    normalisasiStatus(muridSemasa.status);
+
+  /*
+   * Front-end guard.
+   * Backend tetap menjadi pengesah terakhir.
+   */
+  if (
+    status === "MASUK" &&
+    statusSemasa === "DALAM ASRAMA"
+  ) {
     alert(
-      "Sila imbas QR murid terlebih dahulu."
+      "⚠️ Transaksi ditolak.\n" +
+      "Murid sudah berada dalam asrama."
     );
-
-
-    return;
-
-  }
-
-
-  const statusSemasa = String(muridSemasa.status || "").trim().toUpperCase();
-
-  if (status === "MASUK" &&
-      (statusSemasa === "DALAM ASRAMA" || statusSemasa === "DALAM")) {
-    alert("⚠️ Transaksi ditolak. Murid sudah berada dalam asrama.");
     kemasKiniButangTransaksi(statusSemasa);
     return;
   }
 
-  if (status === "KELUAR" &&
-      (statusSemasa === "DI LUAR" || statusSemasa === "LUAR")) {
-    alert("⚠️ Transaksi ditolak. Murid masih berada di luar.");
+  if (
+    status === "KELUAR" &&
+    (
+      statusSemasa === "DI LUAR" ||
+      statusSemasa === "TIADA REKOD"
+    )
+  ) {
+    alert(
+      "⚠️ Transaksi ditolak.\n" +
+      (
+        statusSemasa === "TIADA REKOD"
+          ? "Murid belum mempunyai rekod MASUK."
+          : "Murid masih berada di luar."
+      )
+    );
     kemasKiniButangTransaksi(statusSemasa);
     return;
   }
-
 
   const tindakan =
     status === "MASUK"
       ? "MASUK ASRAMA"
       : "KELUAR ASRAMA";
 
-
   const confirmText =
-
 `SAHKAN TRANSAKSI?
 
 Nama: ${muridSemasa.nama}
@@ -1654,934 +682,404 @@ ID: ${muridSemasa.id}
 Kelas: ${muridSemasa.kelas}
 Dorm: ${muridSemasa.dorm}
 
+Status sekarang: ${statusSemasa}
 Tindakan: ${tindakan}`;
 
+  if (!confirm(confirmText)) return;
 
-  if (
-    !confirm(
-      confirmText
-    )
-  ) {
-
-    return;
-
-  }
-
-
-  hantarTransaksi(
-    status
-  );
-
+  hantarTransaksi(status);
 }
 
-
-/* =====================================================
+/* ==========================================================
    HANTAR TRANSAKSI
-   ===================================================== */
+   ========================================================== */
+async function hantarTransaksi(status) {
+  if (!muridSemasa || !muridSemasa.id) {
+    alert("ID murid tidak tersedia.");
+    return;
+  }
 
-async function hantarTransaksi(
-  status
-) {
+  if (transaksiSedangDihantar) return;
 
+  transaksiSedangDihantar = true;
+  setButtonBusy(true);
+  setLoading(true);
 
   try {
-
-
-    document
-      .getElementById(
-        "loading"
-      )
-      .style.display =
-        "block";
-
+    const idMurid = String(muridSemasa.id).trim();
+    const warden = "WEB APP";
 
     /*
-     * Tiada ruangan nama warden.
-     *
-     * Sistem menggunakan:
-     *
-     * WEB APP
-     *
-     * sebagai sumber transaksi.
+     * Jangan ubah endpoint ini.
+     * Telegram backend, jika dikonfigurasikan dalam Apps Script,
+     * akan terus dipanggil oleh endpoint transaksi yang sama.
      */
-
-    const warden =
-      "WEB APP";
-
-
     const url =
       API_URL +
       "?api=transaksi" +
+      "&id=" + encodeURIComponent(idMurid) +
+      "&status=" + encodeURIComponent(status) +
+      "&warden=" + encodeURIComponent(warden) +
+      "&peranti=" + encodeURIComponent("Web App Android") +
+      "&_t=" + Date.now();
 
-      "&id=" +
-      encodeURIComponent(
-        muridSemasa.id
-      ) +
+    console.log("API TRANSAKSI:", url);
 
-      "&status=" +
-      encodeURIComponent(
-        status
-      ) +
-
-      "&warden=" +
-      encodeURIComponent(
-        warden
-      );
-
-
-    console.log(
-      "API TRANSAKSI:",
-      url
-    );
-
-
-    const response =
-      await fetch(
-        url
-      );
-
+    const response = await fetch(url, {
+      method: "GET",
+      cache: "no-store"
+    });
 
     if (!response.ok) {
-
-      throw new Error(
-        "HTTP " +
-        response.status
-      );
-
+      throw new Error("HTTP " + response.status);
     }
 
+    const text = await response.text();
+    console.log("RAW RESPONSE TRANSAKSI:", text);
 
-    const data =
-      await response.json();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      throw new Error(
+        "Respons transaksi bukan JSON yang sah."
+      );
+    }
 
-
-    console.log(
-      "RESPONSE TRANSAKSI:",
-      data
-    );
-
+    console.log("RESPONSE TRANSAKSI:", data);
 
     if (!data.berjaya) {
-
       const mesejGagal =
-        data.mesej ||
-        "Transaksi gagal.";
+        data.mesej || "Transaksi gagal.";
 
       /*
-       * Jika backend menolak transaksi kerana status murid
-       * sudah berubah, segarkan semula maklumat murid.
-       * Ini mengelakkan paparan telefon menjadi tidak selari
-       * dengan status sebenar dalam Google Sheets.
+       * Jika status berubah di backend,
+       * ambil semula status terkini.
        */
+      const lower = mesejGagal.toLowerCase();
 
       if (
-        mesejGagal.toLowerCase().includes("sudah berada") ||
-        mesejGagal.toLowerCase().includes("masih berada")
+        lower.includes("sudah berada") ||
+        lower.includes("masih berada") ||
+        lower.includes("status")
       ) {
-
-        paparStatus(
-          "🔄 Status murid berubah. Menyegerakkan semula...",
-          "info"
-        );
-
         try {
-
-          await cariMurid(
-            muridSemasa.id
-          );
-
+          await cariMurid(idMurid);
         } catch (syncError) {
-
           console.error(
             "Gagal menyegerakkan status:",
             syncError
           );
-
         }
-
       }
 
       throw new Error(
-        "Transaksi ditolak: " +
-        mesejGagal
+        "Transaksi ditolak: " + mesejGagal
       );
-
     }
-
 
     const statusBaru =
-      data.data &&
-      data.data.statusSemasa
-        ? data.data.statusSemasa
-        : (
-            status === "MASUK"
-              ? "Dalam Asrama"
-              : "Di Luar"
-          );
+      data.data?.statusSemasa ??
+      data.statusSemasa ??
+      (
+        status === "MASUK"
+          ? "Dalam Asrama"
+          : "Di Luar"
+      );
 
+    muridSemasa.status = statusBaru;
+
+    paparStatusMurid(statusBaru);
+    kemasKiniButangTransaksi(statusBaru);
 
     paparStatus(
-
       "✅ TRANSAKSI BERJAYA!\n\n" +
-
-      muridSemasa.nama +
-
-      "\nStatus: " +
-
-      statusBaru,
-
-      "success"
-
-    );
-
-
-    const statusBox =
-      document
-        .getElementById(
-          "statusMurid"
-        );
-
-
-    statusBox.textContent =
-      "Status: " +
-      statusBaru;
-
-
-    if (
-      status === "MASUK"
-    ) {
-
-
-      statusBox.className =
-        "status-murid status-dalam";
-
-
-      muridSemasa.status =
-        "Dalam Asrama";
-
-
-    }
-
-    else {
-
-
-      statusBox.className =
-        "status-murid status-luar";
-
-
-      muridSemasa.status =
-        "Di Luar";
-
-    }
-
-
-    kemasKiniButangTransaksi(muridSemasa.status);
-
-
-    /*
-     * Paparan kejayaan yang jelas pada skrin.
-     */
-
-    paparStatus(
-
-      "✅ TRANSAKSI BERJAYA\n\n" +
       "Murid: " + muridSemasa.nama +
       "\nID: " + muridSemasa.id +
       "\nStatus: " + statusBaru,
-
       "success"
-
     );
-
 
     alert(
-
       "✅ TRANSAKSI BERJAYA\n\n" +
-
-      "Murid: " +
-      muridSemasa.nama +
-
-      "\nID: " +
-      muridSemasa.id +
-
-      "\nStatus: " +
-      statusBaru
-
+      "Murid: " + muridSemasa.nama +
+      "\nID: " + muridSemasa.id +
+      "\nStatus: " + statusBaru
     );
 
+    /*
+     * Selepas transaksi, backend/Google Sheets/Telegram
+     * menerima transaksi melalui endpoint yang sama.
+     */
 
-  }
-
-  catch(error) {
-
-
-    console.error(
-      error
-    );
-
+  } catch (error) {
+    console.error("TRANSAKSI ERROR:", error);
 
     paparStatus(
-
       "❌ TRANSAKSI GAGAL\n\n" +
       error.message,
-
       "error"
-
     );
 
-
     alert(
-
       "❌ TRANSAKSI GAGAL\n\n" +
       error.message
-
     );
 
+  } finally {
+    transaksiSedangDihantar = false;
+    setLoading(false);
+
+    /*
+     * Jangan sekadar enable kedua-dua butang.
+     * Pulihkan berdasarkan status sebenar murid.
+     */
+    if (muridSemasa) {
+      kemasKiniButangTransaksi(
+        muridSemasa.status
+      );
+    } else {
+      kemasKiniButangTransaksi("");
+    }
   }
-
-  finally {
-
-
-    document
-      .getElementById(
-        "loading"
-      )
-      .style.display =
-        "none";
-
-  }
-
 }
 
-
-/* =====================================================
+/* ==========================================================
    HENTIKAN SCANNER
-   ===================================================== */
-
-function hentikanScanner() {
-
-
-  if (
-    qrScanner &&
-    scannerAktif
-  ) {
-
-
-    qrScanner
-      .stop()
-
-      .then(
-        function() {
-
-
-          scannerAktif =
-            false;
-
-
-          document
-            .getElementById(
-              "stopButton"
-            )
-            .style.display =
-              "none";
-
-
-          document
-            .getElementById(
-              "startButton"
-            )
-            .style.display =
-              "block";
-
-        }
-
-      )
-
-      .catch(
-        function(error) {
-
-
-          console.log(
-            "Scanner stop error:",
-            error
-          );
-
-
-          scannerAktif =
-            false;
-
-        }
-
-      );
-
-  }
-
-}
-
-
-/* =====================================================
-   IMBAS SEMULA
-   ===================================================== */
-
-function imbasSemula() {
-
-
-  sedangProses =
-    false;
-
-
-  muridSemasa =
-    null;
-
-
-  document
-    .getElementById(
-      "resultCard"
-    )
-    .style.display =
-      "none";
-
-
-  document
-    .getElementById(
-      "muridNama"
-    )
-    .textContent =
-      "-";
-
-
-  document
-    .getElementById(
-      "muridID"
-    )
-    .textContent =
-      "ID: -";
-
-
-  kemasKiniButangTransaksi("");
-
-
-  document
-    .getElementById(
-      "startButton"
-    )
-    .style.display =
-      "block";
-
-
-  paparStatus(
-
-    "Tekan 'Buka Kamera' untuk imbas murid seterusnya.",
-
-    "info"
-
-  );
-
-
-  window.scrollTo({
-
-    top: 0,
-
-    behavior: "smooth"
-
-  });
-
-}
-
-
-/* =====================================================
-   PAPAR STATUS
-   ===================================================== */
-
-function paparStatus(
-  mesej,
-  jenis
-) {
-
-
-  const element =
-    document.getElementById(
-      "status"
-    );
-
-
-  element.textContent =
-    mesej;
-
-
-  element.className =
-    "status";
-
-
-  if (
-    jenis === "error"
-  ) {
-
-
-    element.classList.add(
-      "status-error"
-    );
-
-
-  }
-
-  else if (
-    jenis === "success"
-  ) {
-
-
-    element.classList.add(
-      "status-success"
-    );
-
-
-  }
-
-  else {
-
-
-    element.classList.add(
-      "status-info"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   QR GENERATOR
-   ===================================================== */
-
-function janaQR() {
-
-
-  const input =
-    document
-      .getElementById(
-        "qrInput"
-      );
-
-
-  const id =
-    String(
-      input.value || ""
-    ).trim();
-
-
-  if (!id) {
-
-
-    alert(
-      "Sila masukkan ID Murid."
-    );
-
-
-    input.focus();
-
-
+   ========================================================== */
+async function hentikanScanner() {
+  if (!qrScanner || !scannerAktif) {
+    document.getElementById("stopButton").style.display = "none";
+    document.getElementById("startButton").style.display = "block";
     return;
-
   }
-
-
-  qrGeneratedValue =
-    id;
-
-
-  const qrContainer =
-    document
-      .getElementById(
-        "qrcode"
-      );
-
-
-  qrContainer.innerHTML =
-    "";
-
 
   try {
-
-
-    new QRCode(
-      qrContainer,
-      {
-
-        text: id,
-
-        width: 250,
-
-        height: 250,
-
-        colorDark: "#000000",
-
-        colorLight: "#ffffff",
-
-        correctLevel:
-          QRCode.CorrectLevel.H
-
-      }
-    );
-
-
+    await qrScanner.stop();
+  } catch (error) {
+    console.log("Scanner stop error:", error);
   }
 
-  catch(error) {
+  scannerAktif = false;
 
+  document.getElementById("stopButton").style.display = "none";
+  document.getElementById("startButton").style.display = "block";
+}
 
+/* ==========================================================
+   IMBAS SEMULA
+   ========================================================== */
+function imbasSemula() {
+  sedangProses = false;
+  transaksiSedangDihantar = false;
+  muridSemasa = null;
+
+  document.getElementById("resultCard").style.display = "none";
+
+  document.getElementById("muridNama").textContent = "-";
+  document.getElementById("muridID").textContent = "ID: -";
+  document.getElementById("muridTahun").textContent = "-";
+  document.getElementById("muridKelas").textContent = "-";
+  document.getElementById("muridDorm").textContent = "-";
+  document.getElementById("muridJantina").textContent = "-";
+
+  paparStatusMurid("Tiada Rekod");
+  kemasKiniButangTransaksi("");
+
+  document.getElementById("carianID").value = "";
+
+  paparStatus(
+    "Tekan 'Buka Kamera' untuk imbas murid seterusnya.",
+    "info"
+  );
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+/* ==========================================================
+   QR GENERATOR
+   ========================================================== */
+function janaQR() {
+  const input = document.getElementById("qrInput");
+  const id = String(input.value || "").trim();
+
+  if (!id) {
+    alert("Sila masukkan ID Murid.");
+    input.focus();
+    return;
+  }
+
+  if (typeof QRCode === "undefined") {
+    alert("Library QR Generator gagal dimuatkan.");
+    return;
+  }
+
+  qrGeneratedValue = id;
+
+  const qrContainer = document.getElementById("qrcode");
+  qrContainer.innerHTML = "";
+
+  try {
+    new QRCode(qrContainer, {
+      text: id,
+      width: 250,
+      height: 250,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  } catch (error) {
     alert(
       "QR gagal dijana: " +
       error.message
     );
-
-
     return;
-
   }
 
+  document.getElementById("qrLabel").textContent = id;
+  document.getElementById("qrGeneratorArea").style.display = "block";
 
-  document
-    .getElementById(
-      "qrLabel"
-    )
-    .textContent =
-      id;
-
-
-  document
-    .getElementById(
-      "qrGeneratorArea"
-    )
-    .style.display =
-      "block";
-
-
-  setTimeout(
-    function() {
-
-      document
-        .getElementById(
-          "qrGeneratorArea"
-        )
-        .scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-    },
-    200
-  );
-
+  setTimeout(function() {
+    document.getElementById("qrGeneratorArea").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }, 200);
 }
-
-
-/* =====================================================
-   MUAT TURUN QR
-   ===================================================== */
 
 function muatTurunQR() {
-
-
   if (!qrGeneratedValue) {
-
-
-    alert(
-      "Sila jana QR terlebih dahulu."
-    );
-
-
+    alert("Sila jana QR terlebih dahulu.");
     return;
-
   }
 
-
-  const qrContainer =
-    document
-      .getElementById(
-        "qrcode"
-      );
-
-
-  const canvas =
-    qrContainer
-      .querySelector(
-        "canvas"
-      );
-
+  const qrContainer = document.getElementById("qrcode");
+  const canvas = qrContainer.querySelector("canvas");
 
   if (canvas) {
-
-
-    const link =
-      document.createElement(
-        "a"
-      );
-
-
-    link.download =
-      "QR-" +
-      qrGeneratedValue +
-      ".png";
-
-
-    link.href =
-      canvas.toDataURL(
-        "image/png"
-      );
-
-
+    const link = document.createElement("a");
+    link.download = "QR-" + qrGeneratedValue + ".png";
+    link.href = canvas.toDataURL("image/png");
     link.click();
-
-
     return;
-
   }
 
-
-  const img =
-    qrContainer
-      .querySelector(
-        "img"
-      );
-
+  const img = qrContainer.querySelector("img");
 
   if (img) {
-
-
-    const link =
-      document.createElement(
-        "a"
-      );
-
-
-    link.download =
-      "QR-" +
-      qrGeneratedValue +
-      ".png";
-
-
-    link.href =
-      img.src;
-
-
+    const link = document.createElement("a");
+    link.download = "QR-" + qrGeneratedValue + ".png";
+    link.href = img.src;
     link.click();
-
-
     return;
-
   }
 
-
-  alert(
-    "QR belum tersedia untuk dimuat turun."
-  );
-
+  alert("QR belum tersedia untuk dimuat turun.");
 }
-
-
-/* =====================================================
-   CETAK QR
-   ===================================================== */
 
 function cetakQR() {
-
-
   if (!qrGeneratedValue) {
-
-
-    alert(
-      "Sila jana QR terlebih dahulu."
-    );
-
-
+    alert("Sila jana QR terlebih dahulu.");
     return;
-
   }
 
-
-  const qrContainer =
-    document
-      .getElementById(
-        "qrcode"
-      );
-
-
-  const canvas =
-    qrContainer
-      .querySelector(
-        "canvas"
-      );
-
-
+  const qrContainer = document.getElementById("qrcode");
+  const canvas = qrContainer.querySelector("canvas");
   let qrImage = "";
 
-
   if (canvas) {
-
-    qrImage =
-      canvas.toDataURL(
-        "image/png"
-      );
-
+    qrImage = canvas.toDataURL("image/png");
+  } else {
+    const img = qrContainer.querySelector("img");
+    if (img) qrImage = img.src;
   }
-
-  else {
-
-
-    const img =
-      qrContainer
-        .querySelector(
-          "img"
-        );
-
-
-    if (img) {
-
-      qrImage =
-        img.src;
-
-    }
-
-  }
-
 
   if (!qrImage) {
-
-
-    alert(
-      "QR belum tersedia."
-    );
-
-
+    alert("QR belum tersedia.");
     return;
-
   }
 
+  const printWindow = window.open("", "_blank");
 
-  const printWindow =
-    window.open(
-      "",
-      "_blank"
-    );
-
+  if (!printWindow) {
+    alert("Popup disekat oleh pelayar. Benarkan popup untuk mencetak QR.");
+    return;
+  }
 
   printWindow.document.write(`
-
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
-<title>
-QR ${qrGeneratedValue}
-</title>
-
+<title>QR ${escapeHtml(qrGeneratedValue)}</title>
 <style>
-
-body {
-
-  text-align: center;
-
-  font-family: Arial;
-
-  padding: 40px;
-
-}
-
-h1 {
-
-  color: #0b3d91;
-
-}
-
-img {
-
-  width: 300px;
-
-  height: 300px;
-
-}
-
-.id {
-
-  font-size: 28px;
-
-  font-weight: bold;
-
-  margin-top: 20px;
-
-}
-
+body{text-align:center;font-family:Arial;padding:40px}
+h1{color:#0b3d91}
+img{width:300px;height:300px}
+.id{font-size:28px;font-weight:bold;margin-top:20px}
 </style>
-
 </head>
-
 <body>
-
-<h1>
-ASRA AI
-</h1>
-
-<p>
-QR CODE MURID
-</p>
-
+<h1>ASRA AI</h1>
+<p>QR CODE MURID</p>
 <img src="${qrImage}">
-
-<div class="id">
-${qrGeneratedValue}
-</div>
-
+<div class="id">${escapeHtml(qrGeneratedValue)}</div>
 <script>
-
-window.onload = function() {
-
-  window.print();
-
-};
-
+window.onload=function(){window.print();};
 <\/script>
-
 </body>
-
 </html>
-
-`);
-
+  `);
 
   printWindow.document.close();
-
 }
 
+/* Elak ID dimasukkan sebagai HTML ketika cetak. */
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
-/* =====================================================
-   PAGE LOAD
-   ===================================================== */
+/* ==========================================================
+   ENTER KEY UNTUK CARIAN
+   ========================================================== */
+document.addEventListener("DOMContentLoaded", function() {
+  const carian = document.getElementById("carianID");
+  const qrInput = document.getElementById("qrInput");
 
-window.addEventListener(
-  "load",
-  function() {
-
-
-    kemasKiniButangTransaksi("");
-
-
-    paparStatus(
-
-      "Tekan 'Buka Kamera' untuk memulakan scanner QR.",
-
-      "info"
-
-    );
-
+  if (carian) {
+    carian.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") cariMuridManual();
+    });
   }
 
-);
+  if (qrInput) {
+    qrInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") janaQR();
+    });
+  }
+});
 
+/* ==========================================================
+   PAGE LOAD
+   ========================================================== */
+window.addEventListener("load", function() {
+  kemasKiniButangTransaksi("");
+
+  paparStatus(
+    "Tekan 'Buka Kamera' untuk memulakan scanner QR.",
+    "info"
+  );
+
+  console.log("ASRA AI index.html siap.");
+  console.log("API:", API_URL);
+});
 </script>
-
-
 </body>
-
 </html>
